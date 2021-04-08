@@ -7,11 +7,16 @@ dotenv.config();
 /******************************************************************************
  *                              Questionniare Controller
  ******************************************************************************/
+
 class QController {
+  /******************************************************************************
+   *                              Food gettters & setters
+   ******************************************************************************/
+
   getAllFood = async (req, res, next) => {
     let foodList = await QModel.find("food");
     if (!foodList.length) {
-      throw new HttpException(404, "Users not found");
+      throw new HttpException(404, "Food not found");
     }
 
     foodList = foodList.map((food) => {
@@ -26,30 +31,11 @@ class QController {
       id: req.params.id,
     });
     if (!food) {
-      throw new HttpException(404, "User not found");
+      throw new HttpException(404, "Food not found");
     }
 
     res.send(food);
   };
-
-  // getUserByuserName = async (req, res, next) => {
-  //   const user = await QuestionnaireModel("food").findOne({
-  //     username: req.params.username,
-  //   });
-  //   if (!user) {
-  //     throw new HttpException(404, "User not found");
-  //   }
-
-  //   const { password, ...userWithoutPassword } = user;
-
-  //   res.send(userWithoutPassword);
-  // };
-
-  // getCurrentUser = async (req, res, next) => {
-  //   const { password, ...userWithoutPassword } = req.currentUser;
-
-  //   res.send(userWithoutPassword);
-  // };
 
   insertFood = async (req, res, next) => {
     this.checkValidation(req);
@@ -63,118 +49,283 @@ class QController {
     res.status(201).send("Food was Inserted!");
   };
 
+  updateFood = async (req, res, next) => {
+    this.checkValidation(req);
+
+    const { ...restOfUpdates } = req.body;
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await QModel.update(restOfUpdates, "Food", req.params.id);
+
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Food not found"
+      : "Food updated successfully";
+
+    res.send({ message, info });
+  };
+
+  /******************************************************************************
+   *                              Home Getters & Setters
+   ******************************************************************************/
+
+  getAllHome = async (req, res, next) => {
+    let homeList = await QModel.find("home");
+    if (!homeList.length) {
+      throw new HttpException(404, "Home not found");
+    }
+
+    homeList = homeList.map((home) => {
+      return home;
+    });
+
+    res.send(homeList);
+  };
+
+  getHomeById = async (req, res, next) => {
+    const home = await QModel("home").findOne({
+      id: req.params.id,
+    });
+    if (!home) {
+      throw new HttpException(404, "Home not found");
+    }
+
+    res.send(home);
+  };
+
   insertHome = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("home", req.body);
+    const result = await QModel.createHome("home", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("Food was Inserted!");
+    res.status(201).send("Home was Inserted!");
+  };
+
+  updateHome = async (req, res, next) => {
+    this.checkValidation(req);
+
+    const { ...restOfUpdates } = req.body;
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await QModel.update(restOfUpdates, "Home", req.params.id);
+
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Home not found"
+      : "Home updated successfully";
+
+    res.send({ message, info });
+  };
+
+  /******************************************************************************
+   *                             Services Getter & Setters
+   ******************************************************************************/
+
+  getAllServices = async (req, res, next) => {
+    let servicesList = await QModel.find("services");
+    if (!servicesList.length) {
+      throw new HttpException(404, "Services not found");
+    }
+
+    servicesList = servicesList.map((services) => {
+      return services;
+    });
+
+    res.send(servicesList);
+  };
+
+  getServicesById = async (req, res, next) => {
+    const services = await QModel("services").findOne({
+      id: req.params.id,
+    });
+    if (!services) {
+      throw new HttpException(404, "Services not found");
+    }
+
+    res.send(services);
   };
 
   insertServices = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("services", req.body);
+    const result = await QModel.createServices("services", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("Food was Inserted!");
+    res.status(201).send("Services was Inserted!");
+  };
+
+  updateServices = async (req, res, next) => {
+    this.checkValidation(req);
+
+    const { ...restOfUpdates } = req.body;
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await QModel.update(
+      restOfUpdates,
+      "Services",
+      req.params.id
+    );
+
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Services not found"
+      : "Services updated successfully";
+
+    res.send({ message, info });
+  };
+
+  /******************************************************************************
+   *                              shopping getters & Setters
+   ******************************************************************************/
+
+  getAllShopping = async (req, res, next) => {
+    let shoppingList = await QModel.find("shopping");
+    if (!shoppingList.length) {
+      throw new HttpException(404, "Shopping not found");
+    }
+
+    shoppingList = shoppingList.map((shopping) => {
+      return shopping;
+    });
+
+    res.send(shoppingList);
+  };
+
+  getShoppingById = async (req, res, next) => {
+    const shopping = await QModel("shopping").findOne({
+      id: req.params.id,
+    });
+    if (!shopping) {
+      throw new HttpException(404, "Shopping not found");
+    }
+
+    res.send(shopping);
   };
 
   insertShopping = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("shopping", req.body);
+    const result = await QModel.createShopping("shopping", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("Food was Inserted!");
+    res.status(201).send("Shopping was Inserted!");
+  };
+
+  updateShopping = async (req, res, next) => {
+    this.checkValidation(req);
+
+    const { ...restOfUpdates } = req.body;
+
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await QModel.update(
+      restOfUpdates,
+      "Shopping",
+      req.params.id
+    );
+
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
+
+    const { affectedRows, info } = result;
+
+    const message = !affectedRows
+      ? "Shopping not found"
+      : "Shopping updated successfully";
+
+    res.send({ message, info });
+  };
+
+  /******************************************************************************
+   *                              Transport getters & Setters
+   ******************************************************************************/
+
+  getAllTransport = async (req, res, next) => {
+    let transportList = await QModel.find("transport");
+
+    transportList = transportList.map((transport) => {
+      return transport;
+    });
+
+    res.send(transportList);
+  };
+
+  getTransportById = async (req, res, next) => {
+    const transport = await QModel("transport").findOne({
+      id: req.params.id,
+    });
+    if (!transport) {
+      throw new HttpException(404, "Transport not found");
+    }
+
+    res.send(transport);
   };
 
   insertTransport = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("transport", req.body);
+    const result = await QModel.createTransport("transport", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
     }
 
-    res.status(201).send("Food was Inserted!");
+    res.status(201).send("Transport was Inserted!");
   };
+  updateTransport = async (req, res, next) => {
+    this.checkValidation(req);
 
-  // updateUser = async (req, res, next) => {
-  //   this.checkValidation(req);
+    const { ...restOfUpdates } = req.body;
 
-  //   await this.hashPassword(req);
+    // do the update query and get the result
+    // it can be partial edit
+    const result = await QModel.update(
+      restOfUpdates,
+      "Transport",
+      req.params.id
+    );
 
-  //   const { confirm_password, ...restOfUpdates } = req.body;
+    if (!result) {
+      throw new HttpException(404, "Something went wrong");
+    }
 
-  //   // do the update query and get the result
-  //   // it can be partial edit
-  //   const result = await QuestionnaireModel.update(
-  //     restOfUpdates,
-  //     req.params.id
-  //   );
+    const { affectedRows, info } = result;
 
-  //   if (!result) {
-  //     throw new HttpException(404, "Something went wrong");
-  //   }
+    const message = !affectedRows
+      ? "Transport not found"
+      : "Transport updated successfully";
 
-  //   const { affectedRows, changedRows, info } = result;
-
-  //   const message = !affectedRows
-  //     ? "User not found"
-  //     : affectedRows && changedRows
-  //     ? "User updated successfully"
-  //     : "Updated faild";
-
-  //   res.send({ message, info });
-  // };
-
-  // deleteUser = async (req, res, next) => {
-  //   const result = await QuestionnaireModel.delete(req.params.id);
-  //   if (!result) {
-  //     throw new HttpException(404, "User not found");
-  //   }
-  //   res.send("User has been deleted");
-  // };
-
-  // userLogin = async (req, res, next) => {
-  //   this.checkValidation(req);
-
-  //   const { email, password: pass } = req.body;
-
-  //   const user = await QuestionnaireModel.findOne({ email });
-
-  //   if (!user) {
-  //     throw new HttpException(401, "Unable to login!");
-  //   }
-
-  //   const isMatch = await bcrypt.compare(pass, user.password);
-
-  //   if (!isMatch) {
-  //     throw new HttpException(401, "Incorrect password!");
-  //   }
-
-  //   // user matched!
-  //   const secretKey = process.env.SECRET_JWT || "";
-  //   const token = jwt.sign({ user_id: user.id.toString() }, secretKey, {
-  //     expiresIn: "24h",
-  //   });
-
-  //   const { password, ...userWithoutPassword } = user;
-
-  //   res.send({ ...userWithoutPassword, token });
-  // };
+    res.send({ message, info });
+  };
 
   checkValidation = (req) => {
     const errors = validationResult(req);

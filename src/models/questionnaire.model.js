@@ -30,7 +30,7 @@ class QModel {
   update = async (params, tableName, id) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id${tableName}   = ?`;
 
     const result = await query(sql, [...values, id]);
 

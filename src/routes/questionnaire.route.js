@@ -10,31 +10,22 @@ const {
   validateLogin,
 } = require("../middleware/validators/userValidator.middleware");
 
-router.get("/", awaitHandlerFactory(qController.getAllFood)); // localhost:3000/api/v1/questionnaire
-router.get("/id/:id", auth(), awaitHandlerFactory(qController.getUserById)); // localhost:3000/api/v1/questionnaire/id/1
-router.get(
-  "/username/:username",
-  auth(),
-  awaitHandlerFactory(qController.getUserByuserName)
-); // localhost:3000/api/v1/questionnaire/questionnaire/skadiri
-router.get("/whoami", auth(), awaitHandlerFactory(qController.getCurrentUser)); // localhost:3000/api/v1/questionnaire/whoami
-router.post("/food", awaitHandlerFactory(qController.insertFood)); // localhost:3000/api/v1/questionnaire
-// router.patch(
-//   "/id/:id",
-//   auth(Role.Admin),
-//   updatequestionnairechema,
-//   awaitHandlerFactory(questionnaireController.updateUser)
-// ); // localhost:3000/api/v1/questionnaire/id/1 , using patch for partial update
-// router.delete(
-//   "/id/:id",
-//   auth(Role.Admin),
-//   awaitHandlerFactory(questionnaireController.deleteUser)
-// ); // localhost:3000/api/v1/questionnaire/id/1
+router.get("/food", awaitHandlerFactory(qController.getAllFood));
+router.get("/home", awaitHandlerFactory(qController.getAllHome));
+router.get("/services", awaitHandlerFactory(qController.getAllServices));
+router.get("/shopping", awaitHandlerFactory(qController.getAllShopping));
+router.get("/transport", awaitHandlerFactory(qController.getAllTransport));
 
-// router.post(
-//   "/login",
-//   validateLogin,
-//   awaitHandlerFactory(questionnaireController.userLogin)
-// ); // localhost:3000/api/v1/questionnaire/login
+router.post("/food", awaitHandlerFactory(qController.insertFood));
+router.post("/home", awaitHandlerFactory(qController.insertHome));
+router.post("/services", awaitHandlerFactory(qController.insertServices));
+router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
+router.post("/transport", awaitHandlerFactory(qController.insertTransport));
+
+router.put("/food/:id", awaitHandlerFactory(qController.updateFood));
+router.put("/home/:id", awaitHandlerFactory(qController.updateHome));
+router.put("/services/:id", awaitHandlerFactory(qController.updateServices));
+router.put("/shopping/:id", awaitHandlerFactory(qController.updateShopping));
+router.put("/transport/:id", awaitHandlerFactory(qController.updateTransport));
 
 module.exports = router;

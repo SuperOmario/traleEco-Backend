@@ -18,8 +18,8 @@ app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
 
-app.use(`/api/v1/users`, userRouter);
-app.use(`/api/v1/questionnaire`, questionnaireRouter);
+app.use(`/api/users`, userRouter);
+app.use(`/api/questionnaire`, questionnaireRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {

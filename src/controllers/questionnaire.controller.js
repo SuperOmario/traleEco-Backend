@@ -14,7 +14,7 @@ class QController {
    ******************************************************************************/
 
   getAllFood = async (req, res, next) => {
-    let foodList = await QModel.find("food");
+    let foodList = await QModel.find("Food");
     if (!foodList.length) {
       throw new HttpException(404, "Food not found");
     }
@@ -40,7 +40,7 @@ class QController {
   insertFood = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("food", req.body);
+    const result = await QModel.createFood("Food", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");

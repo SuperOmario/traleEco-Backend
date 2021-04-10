@@ -50,7 +50,6 @@ class QModel {
     tableName,
     {
       idFood,
-      idMember,
       dailyCalories,
       fishServings,
       beefServings,
@@ -60,13 +59,12 @@ class QModel {
       others,
       petFood,
       foodcol,
-      members_idMembers,
+      user_idUser,
     }
   ) => {
     const sql = `INSERT INTO ${tableName}
         (
           idFood,
-          idMember,
           DailyCalories,
           FishServings,
           BeefServings,
@@ -75,12 +73,11 @@ class QModel {
           DiaryServings,
           Others,PetFood,
           Foodcol, 
-          Members_idMembers
-          ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+          User_idUser
+          ) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
       idFood,
-      idMember,
       dailyCalories,
       fishServings,
       beefServings,
@@ -90,7 +87,7 @@ class QModel {
       others,
       petFood,
       foodcol,
-      members_idMembers,
+      user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
 

@@ -27,7 +27,7 @@ class QController {
   };
 
   getFoodById = async (req, res, next) => {
-    const food = await QModel("food").findOne({
+    const food = await QModel("Food").findOne({
       id: req.params.id,
     });
     if (!food) {
@@ -76,7 +76,7 @@ class QController {
    ******************************************************************************/
 
   getAllHome = async (req, res, next) => {
-    let homeList = await QModel.find("home");
+    let homeList = await QModel.find("Home");
     if (!homeList.length) {
       throw new HttpException(404, "Home not found");
     }
@@ -89,7 +89,7 @@ class QController {
   };
 
   getHomeById = async (req, res, next) => {
-    const home = await QModel("home").findOne({
+    const home = await QModel("Home").findOne({
       id: req.params.id,
     });
     if (!home) {
@@ -102,7 +102,7 @@ class QController {
   insertHome = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createHome("home", req.body);
+    const result = await QModel.createHome("Home", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -138,7 +138,7 @@ class QController {
    ******************************************************************************/
 
   getAllServices = async (req, res, next) => {
-    let servicesList = await QModel.find("services");
+    let servicesList = await QModel.find("Services");
     if (!servicesList.length) {
       throw new HttpException(404, "Services not found");
     }
@@ -151,7 +151,7 @@ class QController {
   };
 
   getServicesById = async (req, res, next) => {
-    const services = await QModel("services").findOne({
+    const services = await QModel("Services").findOne({
       id: req.params.id,
     });
     if (!services) {
@@ -204,7 +204,7 @@ class QController {
    ******************************************************************************/
 
   getAllShopping = async (req, res, next) => {
-    let shoppingList = await QModel.find("shopping");
+    let shoppingList = await QModel.find("Shopping");
     if (!shoppingList.length) {
       throw new HttpException(404, "Shopping not found");
     }
@@ -217,7 +217,7 @@ class QController {
   };
 
   getShoppingById = async (req, res, next) => {
-    const shopping = await QModel("shopping").findOne({
+    const shopping = await QModel("Shopping").findOne({
       id: req.params.id,
     });
     if (!shopping) {
@@ -230,7 +230,7 @@ class QController {
   insertShopping = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createShopping("shopping", req.body);
+    const result = await QModel.createShopping("Shopping", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -270,7 +270,7 @@ class QController {
    ******************************************************************************/
 
   getAllTransport = async (req, res, next) => {
-    let transportList = await QModel.find("transport");
+    let transportList = await QModel.find("Transport");
 
     transportList = transportList.map((transport) => {
       return transport;
@@ -280,7 +280,7 @@ class QController {
   };
 
   getTransportById = async (req, res, next) => {
-    const transport = await QModel("transport").findOne({
+    const transport = await QModel("Transport").findOne({
       id: req.params.id,
     });
     if (!transport) {
@@ -293,7 +293,7 @@ class QController {
   insertTransport = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createTransport("transport", req.body);
+    const result = await QModel.createTransport("Transport", req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");

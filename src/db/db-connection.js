@@ -28,7 +28,10 @@ class DBConnection {
           console.error("Database connection was refused.");
         }
       }
-      if (connection) connection.release();
+      if (connection) {
+        console.log("Successfully connected");
+        connection.release();
+      }
 
       return;
     });

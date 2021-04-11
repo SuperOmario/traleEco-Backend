@@ -5,10 +5,9 @@ const auth = require("../middleware/auth.middleware");
 const awaitHandlerFactory = require("../middleware/awaitHandlerFactory.middleware");
 
 const {
-  createquestionnairechema,
-  updatequestionnairechema,
-  validateLogin,
-} = require("../middleware/validators/userValidator.middleware");
+  creatFoodSchema,
+  updateFoodSchema,
+} = require("../middleware/validators/questionValidator.middleware");
 
 router.get("/food", awaitHandlerFactory(qController.getAllFood));
 router.get("/home", awaitHandlerFactory(qController.getAllHome));
@@ -16,7 +15,11 @@ router.get("/services", awaitHandlerFactory(qController.getAllServices));
 router.get("/shopping", awaitHandlerFactory(qController.getAllShopping));
 router.get("/transport", awaitHandlerFactory(qController.getAllTransport));
 
-router.post("/food", awaitHandlerFactory(qController.insertFood));
+router.post(
+  "/food",
+  creatFoodSchema,
+  awaitHandlerFactory(qController.insertFood)
+);
 router.post("/home", awaitHandlerFactory(qController.insertHome));
 router.post("/services", awaitHandlerFactory(qController.insertServices));
 router.post("/shopping", awaitHandlerFactory(qController.insertShopping));

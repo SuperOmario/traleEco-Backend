@@ -49,44 +49,70 @@ class QModel {
   createFood = async (
     tableName,
     {
-      idFood,
-      dailyCalories,
       fishServings,
       beefServings,
       chickenServings,
       porkServings,
       diaryServings,
-      others,
-      petFood,
+      foodWaste,
+      homeGrown,
+      eatSeasonal,
+      eatLocally,
       foodcol,
       user_idUser,
     }
   ) => {
     const sql = `INSERT INTO ${tableName}
         (
-          idFood,
-          DailyCalories,
-          FishServings,
-          BeefServings,
-          ChickenServings,
-          PorkServings,
-          DiaryServings,
-          Others,PetFood,
-          Foodcol, 
-          User_idUser
+      FishServings,
+      BeefServings,
+      ChickenServings,
+      PorkServings,
+      DiaryServings,
+      FoodWaste,
+      HomeGrown,
+      eatSeasonal,
+      eatLocally,
+      Foodcol,
+      User_idUser
           ) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
-      idFood,
-      dailyCalories,
       fishServings,
       beefServings,
       chickenServings,
       porkServings,
       diaryServings,
-      others,
-      petFood,
+      foodWaste,
+      homeGrown,
+      eatSeasonal,
+      eatLocally,
       foodcol,
+      user_idUser,
+    ]);
+    const affectedRows = result ? result.affectedRows : 0;
+
+    return affectedRows;
+  };
+
+  insertServices = async (
+    tableName,
+    { phone, internet, tV, other, servicescol, user_idUser }
+  ) => {
+    const sql = `INSERT INTO ${tableName}
+        Phone,
+        Internet,
+        TV,
+        Other,
+        Servicescol,
+        User_idUser) VALUES (?,?,?,?,?,?)`;
+
+    const result = await query(sql, [
+      phone,
+      internet,
+      tV,
+      other,
+      servicescol,
       user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
@@ -95,56 +121,6 @@ class QModel {
   };
 
   insertHome = async (
-    tableName,
-    {
-      idHome,
-      idMember,
-      electricityUsage,
-      naturalGas,
-      heatingType,
-      temp,
-      homecol,
-      hoursHeating,
-      noOfPeople,
-      squareFtOfHouse,
-      berRating,
-      members_idMembers,
-    }
-  ) => {
-    const sql = `INSERT INTO ${tableName}
-        ( idHome,
-          idMember,
-          ElectricityUsage,
-          NaturalGas,
-          HeatingType,
-          Temp,
-          Homecol,
-          HoursHeating,
-          NoOfPeople,
-          SquareFtOfHouse,
-          BerRating,
-          Members_idMembers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
-
-    const result = await query(sql, [
-      idHome,
-      idMember,
-      electricityUsage,
-      naturalGas,
-      heatingType,
-      temp,
-      homecol,
-      hoursHeating,
-      noOfPeople,
-      squareFtOfHouse,
-      berRating,
-      members_idMembers,
-    ]);
-    const affectedRows = result ? result.affectedRows : 0;
-
-    return affectedRows;
-  };
-
-  insertServices = async (
     tableName,
     {
       idServices,
@@ -179,32 +155,32 @@ class QModel {
   insertShopping = async (
     tableName,
     {
-      idShopping,
-      clothes,
-      paperBaseProducts,
-      recycle,
-      date,
-      idMember,
-      members_idMembers,
+      furnitureAppliances,
+      paperOffice,
+      clothing,
+      entertainment,
+      medical,
+      shoppingcol,
+      user_idUser,
     }
   ) => {
     const sql = `INSERT INTO ${tableName}
-        (idShopping,
-          Clothes,
-          PaperBaseProducts,
-          Recycle,
-          Date,
-          idMember,
-          Members_idMembers) VALUES (?,?,?,?,?,?,?)`;
+        (FurnitureAppliances,
+          PaperOffice,
+          Clothing,
+          Entertainment,
+          Medical,
+          Shoppingcol,
+          User_idUser,) VALUES (?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
-      idShopping,
-      clothes,
-      paperBaseProducts,
-      recycle,
-      date,
-      idMember,
-      members_idMembers,
+      furnitureAppliances,
+      paperOffice,
+      clothing,
+      entertainment,
+      medical,
+      shoppingcol,
+      user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
 
@@ -214,45 +190,32 @@ class QModel {
   insertTransport = async (
     tableName,
     {
-      idTransport,
-      mode,
-      vehicleType,
-      milage,
+      mainVehicle,
       fuelType,
-      fuelConsumption,
-      noOfPassengers,
-      distance,
-      noOfPublicTransportUsed,
-      idMember,
-      members_idMembers,
+      milage,
+      engineSize,
+      averageNoOfPassengers,
+      regularMaintenance,
+      user_idUser,
     }
   ) => {
     const sql = `INSERT INTO ${tableName}
-        (idTransport,
-          Mode,
-          VehicleType,
-          Milage,
+        (MainVehicle,
           FuelType,
-          FuelConsumption,
-          NoOfPassengers,
-          Distance,
-          NoOfPublicTransportUsed,
-          idMember,
-          Date,
-          Members_idMembers) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+          Milage,
+          EngineSize,
+          AverageNoOfPassengers,
+          RegularMaintenance,
+          User_idUser) VALUES (?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
-      idTransport,
-      mode,
-      vehicleType,
-      milage,
+      mainVehicle,
       fuelType,
-      fuelConsumption,
-      noOfPassengers,
-      distance,
-      noOfPublicTransportUsed,
-      idMember,
-      members_idMembers,
+      milage,
+      engineSize,
+      averageNoOfPassengers,
+      regularMaintenance,
+      user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
 

@@ -25,7 +25,11 @@ router.post("/services", awaitHandlerFactory(qController.insertServices));
 router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
 router.post("/transport", awaitHandlerFactory(qController.insertTransport));
 
-router.put("/food/:id", awaitHandlerFactory(qController.updateFood));
+router.put(
+  "/food/:id",
+  updateFoodSchema,
+  awaitHandlerFactory(qController.updateFood)
+);
 router.put("/home/:id", awaitHandlerFactory(qController.updateHome));
 router.put("/services/:id", awaitHandlerFactory(qController.updateServices));
 router.put("/shopping/:id", awaitHandlerFactory(qController.updateShopping));

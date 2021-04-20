@@ -49,16 +49,15 @@ class QModel {
   createFood = async (
     tableName,
     {
-      fishServings,
-      beefServings,
-      chickenServings,
-      porkServings,
-      diaryServings,
-      foodWaste,
-      homeGrown,
-      eatSeasonal,
-      eatLocally,
-      foodcol,
+      fish,
+      beef,
+      chicken,
+      pork,
+      dairy,
+      waste,
+      homegrown,
+      seasonal,
+      local,
       user_idUser,
     }
   ) => {
@@ -73,21 +72,19 @@ class QModel {
       HomeGrown,
       eatSeasonal,
       eatLocally,
-      Foodcol,
       User_idUser
           ) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
-      fishServings,
-      beefServings,
-      chickenServings,
-      porkServings,
-      diaryServings,
-      foodWaste,
-      homeGrown,
-      eatSeasonal,
-      eatLocally,
-      foodcol,
+      fish,
+      beef,
+      chicken,
+      pork,
+      dairy,
+      waste,
+      homegrown,
+      seasonal,
+      local,
       user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
@@ -97,14 +94,13 @@ class QModel {
 
   insertServices = async (
     tableName,
-    { phone, internet, tV, other, servicescol, user_idUser }
+    { phone, internet, tV, other, user_idUser }
   ) => {
     const sql = `INSERT INTO ${tableName}
         Phone,
         Internet,
         TV,
         Other,
-        Servicescol,
         User_idUser) VALUES (?,?,?,?,?,?)`;
 
     const result = await query(sql, [
@@ -112,7 +108,6 @@ class QModel {
       internet,
       tV,
       other,
-      servicescol,
       user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
@@ -160,7 +155,6 @@ class QModel {
       clothing,
       entertainment,
       medical,
-      shoppingcol,
       user_idUser,
     }
   ) => {
@@ -170,7 +164,6 @@ class QModel {
           Clothing,
           Entertainment,
           Medical,
-          Shoppingcol,
           User_idUser,) VALUES (?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
@@ -179,7 +172,6 @@ class QModel {
       clothing,
       entertainment,
       medical,
-      shoppingcol,
       user_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;

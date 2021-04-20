@@ -1,35 +1,33 @@
 const { body } = require("express-validator");
 
-exports.creatFoodSchema = [
-  body("fishServings").optional().isNumeric().withMessage("Must be a number"),
-  body("beefServings").optional().isNumeric().withMessage("Must be a number"),
-  body("chickenServings")
+exports.createFoodSchema = [
+  body("fish").optional().isNumeric().withMessage("Must be a number"),
+  body("beef").optional().isNumeric().withMessage("Must be a number"),
+  body("chicken")
     .optional()
     .isNumeric()
     .withMessage("Must be a number"),
-  body("porkServings").optional().isNumeric().withMessage("Must be a number"),
-  body("diaryServings").optional().isNumeric().withMessage("Must be a number"),
-  body("foodWaste").optional().isNumeric().withMessage("Must be a number"),
-  body("homeGrown").optional().isNumeric().withMessage("Must be a number"),
-  body("eatSeasonal").optional().isNumeric().withMessage("Must be a number"),
-  body("eatLocally").optional().isNumeric().withMessage("Must be a number"),
-  body("foodcol").optional().isNumeric().withMessage("Must be a number"),
+  body("pork").optional().isNumeric().withMessage("Must be a number"),
+  body("dairy").optional().isNumeric().withMessage("Must be a number"),
+  body("waste").optional().isNumeric().withMessage("Must be a number"),
+  body("homegrown").optional().isNumeric().withMessage("Must be a number"),
+  body("seasonal").optional().isNumeric().withMessage("Must be a number"),
+  body("local").optional().isNumeric().withMessage("Must be a number")
 ];
 
 exports.updateFoodSchema = [
-  body("fishServings").optional().isNumeric().withMessage("Must be a number"),
-  body("beefServings").optional().isNumeric().withMessage("Must be a number"),
-  body("chickenServings")
+  body("fish").optional().isNumeric().withMessage("Must be a number"),
+  body("beef").optional().isNumeric().withMessage("Must be a number"),
+  body("chicken")
     .optional()
     .isNumeric()
     .withMessage("Must be a number"),
-  body("porkServings").optional().isNumeric().withMessage("Must be a number"),
-  body("diaryServings").optional().isNumeric().withMessage("Must be a number"),
-  body("foodWaste").optional().isNumeric().withMessage("Must be a number"),
-  body("homeGrown").optional().isNumeric().withMessage("Must be a number"),
-  body("eatSeasonal").optional().isNumeric().withMessage("Must be a number"),
-  body("eatLocally").optional().isNumeric().withMessage("Must be a number"),
-  body("foodcol").optional().isNumeric().withMessage("Must be a number"),
+  body("pork").optional().isNumeric().withMessage("Must be a number"),
+  body("diary").optional().isNumeric().withMessage("Must be a number"),
+  body("waste").optional().isNumeric().withMessage("Must be a number"),
+  body("homegrown").optional().isNumeric().withMessage("Must be a number"),
+  body("seasonal").optional().isNumeric().withMessage("Must be a number"),
+  body("local").optional().isNumeric().withMessage("Must be a number"),
   body()
     .custom((value) => {
       return !!Object.keys(value).length;
@@ -38,16 +36,15 @@ exports.updateFoodSchema = [
     .custom((value) => {
       const updates = Object.keys(value);
       const allowUpdates = [
-        "fishServings",
-        "beefServings",
-        "chickenServings",
-        "porkServings",
-        "diaryServings",
-        "foodWaste",
-        "homeGrown",
-        "eatSeasonal",
-        "eatLocally",
-        "foodcol",
+        "fish",
+        "beef",
+        "chicken",
+        "pork",
+        "diary",
+        "waste",
+        "homegrown",
+        "seasonal",
+        "local",
       ];
       return updates.every((update) => allowUpdates.includes(update));
     })

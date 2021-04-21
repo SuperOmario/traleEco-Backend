@@ -73,7 +73,7 @@ class QModel {
       eatSeasonal,
       eatLocally,
       User_idUser
-          ) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+          ) VALUES (?,?,?,?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
       fish,

@@ -46,8 +46,7 @@ class QModel {
     return affectedRows;
   };
 
-  createFood = async (
-    tableName,
+  insertFood = async (
     {
       fish,
       beef,
@@ -61,7 +60,7 @@ class QModel {
       user_idUser,
     }
   ) => {
-    const sql = `INSERT INTO ${tableName}
+    const sql = `INSERT INTO Food
         (
       FishServings,
       BeefServings,
@@ -93,10 +92,9 @@ class QModel {
   };
 
   insertServices = async (
-    tableName,
     { phone, internet, tV, other, user_idUser }
   ) => {
-    const sql = `INSERT INTO ${tableName}
+    const sql = `INSERT INTO Services
         Phone,
         Internet,
         TV,
@@ -116,7 +114,6 @@ class QModel {
   };
 
   insertHome = async (
-    tableName,
     {
       idServices,
       idMember,
@@ -126,7 +123,7 @@ class QModel {
       members_idMembers,
     }
   ) => {
-    const sql = `INSERT INTO ${tableName}
+    const sql = `INSERT INTO Home
         ( idServices,
           idMember,
           PhoneContractAmount,
@@ -148,7 +145,6 @@ class QModel {
   };
 
   insertShopping = async (
-    tableName,
     {
       furnitureAppliances,
       paperOffice,
@@ -158,7 +154,7 @@ class QModel {
       user_idUser,
     }
   ) => {
-    const sql = `INSERT INTO ${tableName}
+    const sql = `INSERT INTO Shopping
         (FurnitureAppliances,
           PaperOffice,
           Clothing,
@@ -180,7 +176,6 @@ class QModel {
   };
 
   insertTransport = async (
-    tableName,
     {
       mainVehicle,
       fuelType,
@@ -191,7 +186,7 @@ class QModel {
       user_idUser,
     }
   ) => {
-    const sql = `INSERT INTO ${tableName}
+    const sql = `INSERT INTO Transport
         (MainVehicle,
           FuelType,
           Milage,

@@ -40,7 +40,7 @@ class QController {
   insertFood = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createFood("Food", req.body);
+    const result = await QModel.insertFood(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -102,7 +102,7 @@ class QController {
   insertHome = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createHome("Home", req.body);
+    const result = await QModel.insertHome(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -164,7 +164,7 @@ class QController {
   insertServices = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createServices("services", req.body);
+    const result = await QModel.insertServices(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -230,7 +230,7 @@ class QController {
   insertShopping = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createShopping("Shopping", req.body);
+    const result = await QModel.insertShopping(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -293,7 +293,7 @@ class QController {
   insertTransport = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.createTransport("Transport", req.body);
+    const result = await QModel.insertTransport(req.body);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");

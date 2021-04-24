@@ -12,7 +12,7 @@ const calculateFoodCO2 = (beef, pork, chicken, fish, dairy, ) => {
     //maybe clean up the figures. get them from a utils file
     var meatMultiplier = 0;
     const fishMultiplier = 1.42715;
-    const vegMultiplier = 1.39065
+    const vegMultiplier = 1.39065;
     switch (true) {
         case (meat >= 2) :
             meatMultiplier = 2.62435;
@@ -35,12 +35,13 @@ const calculateOffset = (FoodCO2, local, homegrown) => {
     if (local == 1) {
        localOffset = FoodCO2 * .06; 
     }
-    //this needs to be a more complicated calculation based on the percentage of homegrown food
-    // if (homegrown == 1) {
-    //     homegrownOffset = FoodCO2 * .06;
-    // }
-
-    FoodCO2 -= localOffset
+    //percentage of food which is homegrown offsets CO2 by a maximum of 6%
+    //unsure of figures being passed through by frontend. Must get these off Emily
+    if (homegrown != 0) {
+        const hgOffsetPercentage = homegrown * .06;
+        homegrownOffset = FoodCO2 * hgOffsetPercentage;
+    }
+    FoodCO2 -= localOffset;
     FoodCO2 -= homegrownOffset;
     return FoodCO2;
 }

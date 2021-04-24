@@ -10,7 +10,7 @@ dotenv.config();
 
 class QController {
   /******************************************************************************
-   *                              Food gettters & setters
+   *                              Food getters & setters
    ******************************************************************************/
 
   getAllFood = async (req, res, next) => {

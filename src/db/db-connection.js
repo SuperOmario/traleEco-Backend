@@ -59,6 +59,33 @@ class DBConnection {
       throw err;
     });
   };
+
+  //Attempt at enabling transactions
+
+  // transaction = (body, callback) => {
+  //   this.pool.getConnection((err, conn) => {
+  //     if (err) return callback(err);
+  
+  //     conn.beginTransaction(() => {
+  
+  //       body(conn, (err, ...args) => {
+  //         // Commit or rollback transaction, then proxy callback
+          
+  //         if (err) {
+  //           if (err == 'rollback') {
+  //             args.unshift(null);
+  //           }
+  //           conn.rollback(() => {  });
+  //         } else {
+  //           conn.commit((err) => {
+  //             args.unshift(err);
+  //           })
+  //         }
+  //       });
+  //       console.log("pfffft");
+  //     })
+  //   });
+  // }
 }
 
 // like ENUM
@@ -67,4 +94,4 @@ const HttpStatusCodes = Object.freeze({
   ER_DUP_ENTRY: 409,
 });
 
-module.exports = new DBConnection().query;
+module.exports = { query : new DBConnection().query,  transaction : new DBConnection().transaction };

@@ -1,4 +1,4 @@
-const query = require("../db/db-connection");
+const query = require("../db/db-connection").query;
 const { multipleColumnSet } = require("../utils/common.utils");
 
 class QModel {

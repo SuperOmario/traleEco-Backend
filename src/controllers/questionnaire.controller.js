@@ -327,6 +327,34 @@ class QController {
     res.send({ message, info });
   };
 
+  insertAll = async (req, res, next) => {
+    this.checkValidation(req);
+    var result;
+    console.log(typeof result);
+    result = await QModel.insertFood(req.body);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your food");
+    }
+    result = await QModel.insertHome(req.body);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your home");
+    }
+    result = await QModel.insertServices(req.body);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your services");
+    }
+    result = await QModel.insertShopping(req.body);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your shopping");
+    }
+    result = await QModel.insertTransport(req.body);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your transport");
+    }
+    res.status(201).send("All entries were Inserted!");
+
+  }
+
   checkValidation = (req) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -334,5 +362,7 @@ class QController {
     }
   };
 }
+
+
 
 module.exports = new QController();

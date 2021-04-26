@@ -94,4 +94,6 @@ const HttpStatusCodes = Object.freeze({
   ER_DUP_ENTRY: 409,
 });
 
-module.exports = { query : new DBConnection().query,  transaction : new DBConnection().transaction };
+module.exports = { query : new DBConnection().query,  
+  // transaction : new DBConnection().transaction 
+};

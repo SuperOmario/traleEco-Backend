@@ -330,7 +330,6 @@ class QController {
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
     var result;
-    console.log(typeof result);
     result = await QModel.insertFood(req.body);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your food");

@@ -1,54 +1,58 @@
+const multipliers = require("../utils/homeMultipliers.utils")
+
 const calculateHomeCO2 = (berrating, homesize) => {
     var multiplier = 0;
     //sets a multiplier based on the BER Rating of house
     switch (berrating) {
         case('A1') : 
-            multiplier = 0.0053;
+            multiplier = multipliers.A1Multiplier;
             break;
         case('A2') : 
-            multiplier = 0.0108;
+            multiplier = multipliers.A2Multiplier
             break;
         case('A3') :
-            multiplier = 0.013567;
+            multiplier = multipliers.A3Multiplier
             break;
         case('B1') : 
-            multiplier = 0.016933;
+            multiplier = multipliers.B1Multiplier
             break;
         case('B2') : 
-            multiplier = 0.0217;
+            multiplier = multipliers.B2Multiplier
             break;
         case('B3') : 
-            multiplier = 0.0267;
+            multiplier = multipliers.B3Multiplier
             break;
         case('C1') : 
-            multiplier = 0.031433;
+            multiplier = multipliers.C1Multiplier
             break;
         case('C2') : 
-            multiplier = 0.036933;
+            multiplier = multipliers.C2Multiplier
             break;
         case('C3') : 
-            multiplier = 0.0422;
+            multiplier = multipliers.C3Multiplier
             break;
         case('D1') : 
-            multiplier = 0.0498;
+            multiplier = multipliers.D1Multiplier
             break;
         case('D2') : 
-            multiplier = 0.058433;
+            multiplier = multipliers.D2Multiplier
             break;
         case('E1') : 
-            multiplier = 0.067;
+            multiplier = multipliers.E1Multiplier
             break;
         case('E2') : 
-            multiplier = 0.075833;
+            multiplier = multipliers.E2Multiplier
             break;
         case('F') : 
-            multiplier = 0.0908;
+            multiplier = multipliers.FMultiplier
             break;
         case('G') : 
-            multiplier = 0.1133;
+            multiplier = multipliers.GMultiplier
             break;
     }
     //multiplies homesize by the multiplier we set and returns value
     const HomeCO2 = homesize * multiplier;
     return HomeCO2;
 }
+
+exports = calculateHomeCO2

@@ -7,6 +7,7 @@ const awaitHandlerFactory = require("../middleware/awaitHandlerFactory.middlewar
 const {
 createFoodSchema,
 } = require("../middleware/validators/questionValidator.middleware");
+const calculator = require("../calculator/calculator");
 
 //Gets
 router.get("/food", awaitHandlerFactory(qController.getAllFood));
@@ -22,6 +23,12 @@ router.post("/services", awaitHandlerFactory(qController.insertServices));
 router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
 router.post("/transport", awaitHandlerFactory(qController.insertTransport));
 router.post("/submit", awaitHandlerFactory(qController.insertAll)
+  //apparently calculator is not a function despite being imported and vsCode knows it's being imported from calculator.js 
+  // const CO2 = calculator(req.body);
+  // if (!CO2) {
+  //   res.status(500).send("No CO2");
+  // }
+  // res.status(200).send("Carbon footprint: " + CO2);
 
 //transactions don't work :(
 
@@ -43,6 +50,7 @@ router.post("/submit", awaitHandlerFactory(qController.insertAll)
   // });
 // }
 );
+// router.post("/calculate", calculator(req.body))
 
 //Puts
 router.put("/food/:id", createFoodSchema, awaitHandlerFactory(qController.updateFood));

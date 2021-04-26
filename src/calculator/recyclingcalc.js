@@ -1,34 +1,39 @@
+const multipliers = require("../utils/wasteMultipliers.utils")
+
 const calculateRecyclingCO2 = (glass, plastic, paper, foil) => {
-    //average yearly waste per person
-    var plasticWaste = 0.033;
-    var glassWaste = 0.00413;
-    var paperWaste = 0.01651;
-    var foilWaste = 0.0033;
+    //average yearly waste per person (may be needed later for rework)
+    // var plasticWaste = 0.033;
+    // var glassWaste = 0.00413;
+    // var paperWaste = 0.01651;
+    // var foilWaste = 0.0033;
 
     //CO2 emissions per person
-    var plasticCO2 = 0.05808;
-    var glassCO2 = 0.0013629;
-    var paperCO2 = 0.0624078;
-    var foilCO2 = 0.05808;
+    var plasticCO2 = multipliers.plasticCO2;
+    var glassCO2 = multipliers.glassCO2;
+    var paperCO2 = multipliers.paperCO2;
+    var foilCO2 = multipliers.foilCO2;
 
-    //CO2 reduced per tonne of recycling
-    var plasticCO2Reduction = 1.76;
-    var glassCO2Reduction = .33;
-    var paperCO2Reduciton = 3.78;
-    var foilCO2Reduction = 1.76;
+    //CO2 reduced per tonne of recycling (This just results in zero emmissions if used so I simplified the below section - may need to be reworked)
+    // var plasticCO2Reduction = 1.76;
+    // var glassCO2Reduction = .33;
+    // var paperCO2Reduciton = 3.78;
+    // var foilCO2Reduction = 1.76;
 
-    //this is just a complicated way of saying the carbon emissions are 0
-    //I feel this is wrong though so I haven't hard coded it. We need to figure out what the missing step is
-    if (plastic) {
-        plasticCO2 -= (plasticWaste * plasticCO2Reduction);
+    if (plastic == "Y") {
+        plasticCO2 = 0;
     }
-    if (glass) {
-        glassCO2 -= (glassWaste * glassCO2Reduction);
+    if (glass == "Y") {
+        glassCO2 = 0;
     }
-    if (paper) {
-        paperCO2 -= (paperWaste * paperCO2Reduciton);
+    if (paper == "Y") {
+        paperCO2 = 0;
     }
-    if (foil) {
-        foilCO2 -= (foilWaste * foilCO2Reduction);
+    if (foil == "Y") {
+        foilCO2 = 0;
     }
+
+    const wasteCO2 = (plasticCO2 + glassCO2 + paperCO2 + foilCO2)
+    return wasteCO2;
 }
+
+exports = calculateRecyclingCO2

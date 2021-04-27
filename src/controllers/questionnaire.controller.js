@@ -1,6 +1,7 @@
 const QModel = require("../models/questionnaire.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
+const calculateFoodCO2 = require("../calculator/foodcalc");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -329,30 +330,33 @@ class QController {
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
-    var result;
-    result = await QModel.insertFood(req.body);
+
+    let result;
+
+    result = calculateFoodCO2(req.body.foodValue);
+    result = await QModel.insertFood(req.body.foodValue);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your food");
     }
-    result = await QModel.insertHome(req.body);
+    result = await QModel.insertHome(req.body.homeValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your home");
     }
-    result = await QModel.insertServices(req.body);
+    result = await QModel.insertServices(req.body.serviceValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your services");
     }
-    result = await QModel.insertShopping(req.body);
+    result = await QModel.insertShopping(req.body.purchaseValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your shopping");
     }
-    result = await QModel.insertTransport(req.body);
+    result = await QModel.insertTransport(req.body.transportValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your transport");
     }
-    res.status(201).send("All entries were Inserted!");
 
-  }
+    res.status(201).send(result);
+  };
 
   checkValidation = (req) => {
     const errors = validationResult(req);
@@ -361,7 +365,5 @@ class QController {
     }
   };
 }
-
-
 
 module.exports = new QController();

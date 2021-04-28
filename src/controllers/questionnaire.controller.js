@@ -328,34 +328,80 @@ class QController {
     res.send({ message, info });
   };
 
+  // insertAll = async (req, res, next) => {
+  //   this.checkValidation(req);
+
+  //   let result;
+
+  //   result = calculateFoodCO2(req.body.foodValue);
+  //   result = await QModel.insertFood(req.body.foodValue);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your food");
+  //   }
+  //   result = await QModel.insertHome(req.body.homeValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your home");
+  //   }
+  //   result = await QModel.insertServices(req.body.serviceValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your services");
+  //   }
+  //   result = await QModel.insertShopping(req.body.purchaseValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your shopping");
+  //   }
+  //   result = await QModel.insertTransport(req.body.transportValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your transport");
+  //   }
+
+  //   res.status(201).send(result);
+  // };
+
+  // updateAll = async (req, res, next) => {
+  //   this.checkValidation(req);
+
+  //   let result;
+
+  //   result = calculateFoodCO2(req.body.foodValue);
+  //   result = await QModel.updateFood(req.body.foodValue);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your food");
+  //   }
+  //   result = await QModel.updatetHome(req.body.homeValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your home");
+  //   }
+  //   result = await QModel.updatetServices(req.body.serviceValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your services");
+  //   }
+  //   result = await QModel.updateShopping(req.body.purchaseValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your shopping");
+  //   }
+  //   result = await QModel.updateTransport(req.body.transportValues);
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your transport");
+  //   }
+
+  //   res.status(201).send(result);
+  // };
+
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
 
     let result;
 
     result = calculateFoodCO2(req.body.foodValue);
-    result = await QModel.insertFood(req.body.foodValue);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your food");
-    }
-    result = await QModel.insertHome(req.body.homeValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your home");
-    }
-    result = await QModel.insertServices(req.body.serviceValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your services");
-    }
-    result = await QModel.insertShopping(req.body.purchaseValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your shopping");
-    }
-    result = await QModel.insertTransport(req.body.transportValues);
+
+    console.log("The data returned is : ", result);
+
     if (!result) {
       throw new HttpException(500, "Something went wrong with your transport");
     }
 
-    res.status(201).send(result);
+    res.send(result);
   };
 
   checkValidation = (req) => {

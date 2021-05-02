@@ -56,7 +56,7 @@ exports.updateUserSchema = [
     .withMessage(
       "confirm_password field must have the same value as the password field"
     ),
-  body("usercol").optional().isNumeric().withMessage("Must be a number"),
+
   body()
     .custom((value) => {
       return !!Object.keys(value).length;
@@ -69,7 +69,6 @@ exports.updateUserSchema = [
         "password",
         "confirm_password",
         "email",
-        "usercol",
       ];
       return updates.every((update) => allowUpdates.includes(update));
     })

@@ -2,6 +2,7 @@ const query = require("../db/db-connection").query;
 const { multipleColumnSet } = require("../utils/common.utils");
 
 class QModel {
+  tableName = "User";
   find = async (tableName, params = {}) => {
     let sql = `SELECT * FROM ${tableName}`;
 
@@ -30,7 +31,7 @@ class QModel {
   update = async (params, tableName, id) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `UPDATE ${tableName} SET ${columnSet} WHERE id${tableName}   = ?`;
+    const sql = `UPDATE ${tableName} SET ${columnSet} WHERE User_idUser  = ?`;
 
     const result = await query(sql, [...values, id]);
 

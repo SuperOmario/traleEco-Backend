@@ -1,4 +1,4 @@
-const query = require("../db/db-connection");
+const query = require("../db/db-connection").query;
 const { multipleColumnSet } = require("../utils/common.utils");
 const Role = require("../utils/userRoles.utils");
 class UserModel {
@@ -19,9 +19,8 @@ class UserModel {
 
   findOne = async (params) => {
     const { columnSet, values } = multipleColumnSet(params);
-
     const sql = `SELECT * FROM ${this.tableName}
-        WHERE ${columnSet}`;
+    WHERE ${columnSet}`;
 
     const result = await query(sql, [...values]);
 
@@ -29,11 +28,11 @@ class UserModel {
     return result[0];
   };
 
-  create = async ({ username, password, email, usercol = 0 }) => {
+  create = async ({ username, password, email }) => {
     const sql = `INSERT INTO ${this.tableName}
-        (username, password, email,  Usercol) VALUES (?,?,?,?)`;
+        (username, password, email) VALUES (?,?,?)`;
 
-    const result = await query(sql, [username, password, email, usercol]);
+    const result = await query(sql, [username, password, email]);
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;

@@ -28,9 +28,12 @@ class QController {
   };
 
   getFoodById = async (req, res, next) => {
-    const food = await QModel("Food").findOne({
-      id: req.params.id,
-    });
+    const food = await QModel.findOne(
+      {
+        User_idUser: req.params.id,
+      },
+      "Food"
+    );
     if (!food) {
       throw new HttpException(404, "Food not found");
     }
@@ -90,9 +93,12 @@ class QController {
   };
 
   getHomeById = async (req, res, next) => {
-    const home = await QModel("Home").findOne({
-      id: req.params.id,
-    });
+    const home = await QModel.findOne(
+      {
+        User_idUser: req.params.id,
+      },
+      "Home"
+    );
     if (!home) {
       throw new HttpException(404, "Home not found");
     }
@@ -152,9 +158,12 @@ class QController {
   };
 
   getServicesById = async (req, res, next) => {
-    const services = await QModel("Services").findOne({
-      id: req.params.id,
-    });
+    const services = await QModel.findOne(
+      {
+        User_idUser: req.params.id,
+      },
+      "Service"
+    );
     if (!services) {
       throw new HttpException(404, "Services not found");
     }
@@ -218,9 +227,12 @@ class QController {
   };
 
   getShoppingById = async (req, res, next) => {
-    const shopping = await QModel("Shopping").findOne({
-      id: req.params.id,
-    });
+    const shopping = await QModel.findOne(
+      {
+        User_idUser: req.params.id,
+      },
+      "Shopping"
+    );
     if (!shopping) {
       throw new HttpException(404, "Shopping not found");
     }
@@ -281,9 +293,12 @@ class QController {
   };
 
   getTransportById = async (req, res, next) => {
-    const transport = await QModel("Transport").findOne({
-      id: req.params.id,
-    });
+    const transport = await QModel.findOne(
+      {
+        User_idUser: req.params.id,
+      },
+      "Transport"
+    );
     if (!transport) {
       throw new HttpException(404, "Transport not found");
     }
@@ -328,65 +343,64 @@ class QController {
     res.send({ message, info });
   };
 
-  // insertAll = async (req, res, next) => {
-  //   this.checkValidation(req);
+  insertAll = async (req, res, next) => {
+    this.checkValidation(req);
 
-  //   let result;
+    let result;
 
-  //   result = calculateFoodCO2(req.body.foodValue);
-  //   result = await QModel.insertFood(req.body.foodValue);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your food");
-  //   }
-  //   result = await QModel.insertHome(req.body.homeValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your home");
-  //   }
-  //   result = await QModel.insertServices(req.body.serviceValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your services");
-  //   }
-  //   result = await QModel.insertShopping(req.body.purchaseValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your shopping");
-  //   }
-  //   result = await QModel.insertTransport(req.body.transportValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your transport");
-  //   }
+    result = await QModel.insertFood(req.body.foodValue);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your food");
+    }
+    result = await QModel.insertHome(req.body.homeValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your home");
+    }
+    result = await QModel.insertServices(req.body.serviceValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your services");
+    }
+    result = await QModel.insertShopping(req.body.purchaseValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your shopping");
+    }
+    result = await QModel.insertTransport(req.body.transportValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your transport");
+    }
 
-  //   res.status(201).send(result);
-  // };
+    result = calculateFoodCO2(req.body.foodValue);
+    res.status(201).send(result);
+  };
 
-  // updateAll = async (req, res, next) => {
-  //   this.checkValidation(req);
+  updateAll = async (req, res, next) => {
+    this.checkValidation(req);
 
-  //   let result;
+    let result;
 
-  //   result = calculateFoodCO2(req.body.foodValue);
-  //   result = await QModel.updateFood(req.body.foodValue);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your food");
-  //   }
-  //   result = await QModel.updatetHome(req.body.homeValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your home");
-  //   }
-  //   result = await QModel.updatetServices(req.body.serviceValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your services");
-  //   }
-  //   result = await QModel.updateShopping(req.body.purchaseValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your shopping");
-  //   }
-  //   result = await QModel.updateTransport(req.body.transportValues);
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your transport");
-  //   }
+    result = await QModel.updateFood(req.body.foodValue);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your food");
+    }
+    result = await QModel.updatetHome(req.body.homeValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your home");
+    }
+    result = await QModel.updatetServices(req.body.serviceValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your services");
+    }
+    result = await QModel.updateShopping(req.body.purchaseValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your shopping");
+    }
+    result = await QModel.updateTransport(req.body.transportValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your transport");
+    }
 
-  //   res.status(201).send(result);
-  // };
+    res.status(201).send(result);
+  };
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);

@@ -2,6 +2,8 @@ const QModel = require("../models/questionnaire.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
 const calculateFoodCO2 = require("../calculator/foodcalc");
+const calculateTransportCO2 = require("../calculator/transportcalc");
+const calculateHomeCO2 = require("../calculator/homecalc");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -370,7 +372,9 @@ class QController {
     }
 
     result = calculateFoodCO2(req.body.foodValue);
-    res.status(201).send(result);
+    result += calculateTransportCO2(req.body.transportValues);
+    result += calculateHomeCO2(req.body.homeValues);
+    res.status(201).send(result.toString());
   };
 
   updateAll = async (req, res, next) => {
@@ -402,21 +406,22 @@ class QController {
     res.status(201).send(result);
   };
 
-  insertAll = async (req, res, next) => {
-    this.checkValidation(req);
+  // insertAll = async (req, res, next) => {
+  //   this.checkValidation(req);
 
-    let result;
+  //   let result;
 
-    result = calculateFoodCO2(req.body.foodValue);
+  //   result = calculateFoodCO2(req.body.foodValue);
+  //   result += cal
 
-    console.log("The data returned is : ", result);
+  //   console.log("The data returned is : ", result);
 
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your transport");
-    }
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your transport");
+  //   }
 
-    res.send(result);
-  };
+  //   res.send(result);
+  // };
 
   checkValidation = (req) => {
     const errors = validationResult(req);

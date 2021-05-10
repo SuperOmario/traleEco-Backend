@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 const calculateFoodCO2 = require("../calculator/foodcalc");
 const calculateTransportCO2 = require("../calculator/transportcalc");
 const calculateHomeCO2 = require("../calculator/homecalc");
+const calculateConsumerCO2 = require("../calculator/consumercalc")
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -374,6 +375,7 @@ class QController {
     result = calculateFoodCO2(req.body.foodValue);
     result += calculateTransportCO2(req.body.transportValues);
     result += calculateHomeCO2(req.body.homeValues);
+    result += calculateConsumerCO2(req.body.serviceValues, req.body.purchaseValues);
     res.status(201).send(result.toString());
   };
 

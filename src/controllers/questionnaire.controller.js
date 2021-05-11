@@ -370,7 +370,8 @@ class QController {
     }
 
     result = calculateFoodCO2(req.body.foodValue);
-    res.status(201).send(result);
+    console.log("This is the result log: ", result);
+    res.status(201).send({ result });
   };
 
   updateAll = async (req, res, next) => {
@@ -402,21 +403,21 @@ class QController {
     res.status(201).send(result);
   };
 
-  insertAll = async (req, res, next) => {
-    this.checkValidation(req);
+  // insertAll = async (req, res, next) => {
+  //   this.checkValidation(req);
 
-    let result;
+  //   let result;
 
-    result = calculateFoodCO2(req.body.foodValue);
+  //   result = calculateFoodCO2(req.body.foodValue);
 
-    console.log("The data returned is : ", result);
+  //   console.log("The data returned is : ", result);
 
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your transport");
-    }
+  //   if (!result) {
+  //     throw new HttpException(500, "Something went wrong with your transport");
+  //   }
 
-    res.send(result);
-  };
+  //   res.send(result);
+  // };
 
   checkValidation = (req) => {
     const errors = validationResult(req);

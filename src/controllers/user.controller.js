@@ -119,9 +119,13 @@ class UserController {
 
     // user matched!
     const secretKey = process.env.SECRET_JWT || "";
-    const token = jwt.sign({ user_id: user.idUser.toString() }, secretKey, {
-      expiresIn: "24h",
-    });
+    const token = jwt.sign(
+      { userId: user.idUser.toString(), username: user.Username.toString() },
+      secretKey,
+      {
+        expiresIn: "24h",
+      }
+    );
 
     const { password, ...userWithoutPassword } = user;
 

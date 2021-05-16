@@ -36,4 +36,4 @@ const calculateRecyclingCO2 = (glass, plastic, paper, foil) => {
     return wasteCO2;
 }
 
-exports = calculateRecyclingCO2
+module.exports = calculateRecyclingCO2

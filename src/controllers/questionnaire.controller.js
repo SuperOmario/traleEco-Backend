@@ -2,6 +2,9 @@ const QModel = require("../models/questionnaire.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
 const calculateFoodCO2 = require("../calculator/foodcalc");
+const calculateTransportCO2 = require("../calculator/transportcalc");
+const calculateHomeCO2 = require("../calculator/homecalc");
+const calculateConsumerCO2 = require("../calculator/consumercalc");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -55,8 +58,20 @@ class QController {
 
   updateFood = async (req, res, next) => {
     this.checkValidation(req);
+    const updateValues = {
+      FishServings: req.body.fish,
+      BeefServings: req.body.beef,
+      ChickenServings: req.body.chicken,
+      PorkServings: req.body.pork,
+      DiaryServings: req.body.dairy,
+      FoodWaste: req.body.waste,
+      HomeGrown: req.body.homegrown,
+      eatSeasonal: req.body.seasonal,
+      eatLocally: req.body.local,
+      User_idUser: req.body.userId,
+    };
 
-    const { ...restOfUpdates } = req.body;
+    const { ...restOfUpdates } = updateValues;
 
     // do the update query and get the result
     // it can be partial edit
@@ -66,13 +81,14 @@ class QController {
       throw new HttpException(404, "Something went wrong");
     }
 
-    const { affectedRows, info } = result;
+    const { affectedRows, warningStatus } = result;
 
     const message = !affectedRows
       ? "Food not found"
       : "Food updated successfully";
 
-    res.send({ message, info });
+    console.log("the resule is : ", message);
+    res.send(message);
   };
 
   /******************************************************************************
@@ -162,7 +178,7 @@ class QController {
       {
         User_idUser: req.params.id,
       },
-      "Service"
+      "Services"
     );
     if (!services) {
       throw new HttpException(404, "Services not found");

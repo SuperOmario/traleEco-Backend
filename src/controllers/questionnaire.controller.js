@@ -87,7 +87,6 @@ class QController {
       ? "Food not found"
       : "Food updated successfully";
 
-    console.log("the resule is : ", message);
     res.send(message);
   };
 
@@ -137,7 +136,20 @@ class QController {
   updateHome = async (req, res, next) => {
     this.checkValidation(req);
 
-    const { ...restOfUpdates } = req.body;
+    const updateValues = {
+      PrimaryHeating: req.body.heating,
+      BERRating: req.body.brating,
+      HomeSize: req.body.homesize,
+      Electricity: req.body.electricity,
+      GreenElectricity: req.body.green,
+      RecyclePlastic: req.body.plastic,
+      RecycleGlass: req.body.glass,
+      RecyclePaper: req.body.paper,
+      RecycleCans: req.body.recycleCans,
+      User_idUser: req.body.userId,
+    };
+
+    const { ...restOfUpdates } = updateValues;
 
     // do the update query and get the result
     // it can be partial edit
@@ -202,7 +214,15 @@ class QController {
   updateServices = async (req, res, next) => {
     this.checkValidation(req);
 
-    const { ...restOfUpdates } = req.body;
+    const updateValues = {
+      Phone: req.body.phone,
+      Internet: req.body.internet,
+      TV: req.body.tv,
+      Other: req.body.others,
+      User_idUser: req.body.userId,
+    };
+
+    const { ...restOfUpdates } = updateValues;
 
     // do the update query and get the result
     // it can be partial edit
@@ -271,7 +291,16 @@ class QController {
   updateShopping = async (req, res, next) => {
     this.checkValidation(req);
 
-    const { ...restOfUpdates } = req.body;
+    const updateValues = {
+      FurnitureAppliances: req.body.appliances,
+      PaperOffice: req.body.office,
+      Clothing: req.body.clothing,
+      Entertainment: req.body.entertainment,
+      Pets: req.body.pets,
+      User_idUser: req.body.userId,
+    };
+
+    const { ...restOfUpdates } = updateValues;
 
     // do the update query and get the result
     // it can be partial edit
@@ -336,7 +365,17 @@ class QController {
   updateTransport = async (req, res, next) => {
     this.checkValidation(req);
 
-    const { ...restOfUpdates } = req.body;
+    const updateValues = {
+      MainVehicle: req.body.vehicle,
+      FuelType: req.body.fuel,
+      Milage: req.body.milage,
+      EngineSize: req.body.engine,
+      AverageNoOfPassengers: req.body.passengers,
+      RegularMaintenance: req.body.carmaintenance,
+      User_idUser: req.body.userId,
+    };
+
+    const { ...restOfUpdates } = updateValues;
 
     // do the update query and get the result
     // it can be partial edit

@@ -21,6 +21,19 @@ class GoalController {
       res.send(goalList);
     };
 
+    getAllGoalsForUser = async (req, res, next) => {
+      let goalList = await GoalModel.getAllForUser(req.params.idUser);
+      if (!goalList.length) {
+        throw new HttpException(404, "Goals not found");
+      }
+    
+      goalList = goalList.map((goal) => {
+        return goal;
+      });
+    
+      res.send(goalList);
+    }
+
     createGoal = async (req, res, next) => {
       this.checkValidation(req);
 
@@ -32,6 +45,16 @@ class GoalController {
     
       res.status(201).send("Goal was created!");
     };
+
+    delete = async (req, res, next) => {
+      const result = await GoalModel.delete(req.params.id);
+
+      if (!result) {
+        throw new HttpException(500, "Something went wrong");
+      }
+
+      res.status(204).send();
+    }
 
     deleteAllForUser = async (req, res, next) => {
       const result = await GoalModel.deleteAllForUser(req.params.id);

@@ -56,6 +56,14 @@ class GoalModel {
         return affectedRows;
     };
 
+    getAllForUser = async (idUser) => {
+        const sql = `SELECT * FROM ${this.tableName}
+            WHERE idUser = ?`;
+        const result = await query(sql, [idUser]);
+    
+        return result;
+    }
+
     deleteAllForUser = async (idUser) => {
         const sql = `DELETE FROM ${this.tableName}
             WHERE idUser = ?`;

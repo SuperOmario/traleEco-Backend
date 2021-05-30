@@ -29,7 +29,17 @@ class UserModel {
   };
 
   create = async ({ username, password, email }) => {
-    const sql = `INSERT INTO ${this.tableName}
+    let sql = `SELECT * FROM ${this.tableName}
+    WHERE Email = ?`;
+
+    let found = await query(sql, email);
+
+    console.log("Value of found", found.length);
+    if (found.length != 0) {
+      return "User Exist";
+    }
+
+    sql = `INSERT INTO ${this.tableName}
         (username, password, email) VALUES (?,?,?)`;
 
     const result = await query(sql, [username, password, email]);

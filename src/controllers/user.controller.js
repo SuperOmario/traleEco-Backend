@@ -61,7 +61,8 @@ class UserController {
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
-    }
+    } else if (result == "User Exist")
+      throw new HttpException(401, "User Already Exist");
 
     res.status(201).send("User was created!");
   };

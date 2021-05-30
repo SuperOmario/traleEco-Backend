@@ -5,6 +5,7 @@ const HttpException = require("./utils/HttpException.utils");
 const errorMiddleware = require("./middleware/error.middleware");
 const userRouter = require("./routes/user.route");
 const questionnaireRouter = require("./routes/questionnaire.route");
+const goalRouter = require("./routes/goal.route");
 
 // Init express
 const app = express();
@@ -20,6 +21,7 @@ app.options("*", cors());
 
 app.use(`/api/users`, userRouter);
 app.use(`/api/questionnaire`, questionnaireRouter);
+app.use(`/api/goals`, goalRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {

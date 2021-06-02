@@ -21,7 +21,7 @@ app.options("*", cors());
 
 app.use(`/api/users`, userRouter);
 app.use(`/api/questionnaire`, questionnaireRouter);
-app.use(`/api/goals`, goalRouter);
+// app.use(`/api/goals`, goalRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {

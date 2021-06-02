@@ -1,10 +1,7 @@
 const QModel = require("../models/questionnaire.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
-const calculateFoodCO2 = require("../calculator/foodcalc");
-const calculateTransportCO2 = require("../calculator/transportcalc");
-const calculateHomeCO2 = require("../calculator/homecalc");
-const calculateConsumerCO2 = require("../calculator/consumercalc");
+const calculateCO2 = require("../calculator/calculator");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -47,7 +44,7 @@ class QController {
   insertFood = async (req, res, next) => {
     this.checkValidation(req);
 
-    const result = await QModel.insertFood(req.body);
+    const result = await QModel.insertFood(req.body.foodValue);
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
@@ -245,83 +242,6 @@ class QController {
     res.send({ message, info });
   };
 
-  /******************************************************************************
-   *                              shopping getters & Setters
-   ******************************************************************************/
-
-  getAllShopping = async (req, res, next) => {
-    let shoppingList = await QModel.find("Shopping");
-    if (!shoppingList.length) {
-      throw new HttpException(404, "Shopping not found");
-    }
-
-    shoppingList = shoppingList.map((shopping) => {
-      return shopping;
-    });
-
-    res.send(shoppingList);
-  };
-
-  getShoppingById = async (req, res, next) => {
-    const shopping = await QModel.findOne(
-      {
-        User_idUser: req.params.id,
-      },
-      "Shopping"
-    );
-    if (!shopping) {
-      throw new HttpException(404, "Shopping not found");
-    }
-
-    res.send(shopping);
-  };
-
-  insertShopping = async (req, res, next) => {
-    this.checkValidation(req);
-
-    const result = await QModel.insertShopping(req.body);
-
-    if (!result) {
-      throw new HttpException(500, "Something went wrong");
-    }
-
-    res.status(201).send("Shopping was Inserted!");
-  };
-
-  updateShopping = async (req, res, next) => {
-    this.checkValidation(req);
-
-    const updateValues = {
-      FurnitureAppliances: req.body.appliances,
-      PaperOffice: req.body.office,
-      Clothing: req.body.clothing,
-      Entertainment: req.body.entertainment,
-      Pets: req.body.pets,
-      User_idUser: req.body.userId,
-    };
-
-    const { ...restOfUpdates } = updateValues;
-
-    // do the update query and get the result
-    // it can be partial edit
-    const result = await QModel.update(
-      restOfUpdates,
-      "Shopping",
-      req.params.id
-    );
-
-    if (!result) {
-      throw new HttpException(404, "Something went wrong");
-    }
-
-    const { affectedRows, info } = result;
-
-    const message = !affectedRows
-      ? "Shopping not found"
-      : "Shopping updated successfully";
-
-    res.send({ message, info });
-  };
 
   /******************************************************************************
    *                              Transport getters & Setters
@@ -415,16 +335,12 @@ class QController {
     if (!result) {
       throw new HttpException(500, "Something went wrong with your services");
     }
-    result = await QModel.insertShopping(req.body.purchaseValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your shopping");
-    }
     result = await QModel.insertTransport(req.body.transportValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your transport");
     }
 
-    result = calculateFoodCO2(req.body.foodValue);
+    result = calculateCO2(req.body.foodValue, req.body.homeValues, req.body.serviceValues, req.body.transportValues);
     console.log("This is the result log: ", result);
     res.status(201).send({ result });
   };

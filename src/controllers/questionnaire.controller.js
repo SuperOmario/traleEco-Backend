@@ -215,12 +215,12 @@ class QController {
       Phone: req.body.phone,
       Internet: req.body.internet,
       TV: req.body.tv,
-      Other: req.body.others,
+      Office: req.body.office,
+      Clothing: req.body.clothing,
       User_idUser: req.body.userId,
     };
 
     const { ...restOfUpdates } = updateValues;
-
     // do the update query and get the result
     // it can be partial edit
     const result = await QModel.update(
@@ -241,7 +241,6 @@ class QController {
 
     res.send({ message, info });
   };
-
 
   /******************************************************************************
    *                              Transport getters & Setters
@@ -284,14 +283,14 @@ class QController {
   };
   updateTransport = async (req, res, next) => {
     this.checkValidation(req);
-
+    console.log("This is the data to update : ", req.body);
     const updateValues = {
-      MainVehicle: req.body.vehicle,
-      FuelType: req.body.fuel,
-      Milage: req.body.milage,
-      EngineSize: req.body.engine,
-      AverageNoOfPassengers: req.body.passengers,
-      RegularMaintenance: req.body.carmaintenance,
+      MainVehicle: Number(req.body.vehicle),
+      FuelType: Number(req.body.fuel),
+      Milage: Number(req.body.milage),
+      EngineSize: Number(req.body.engine),
+      AverageNoOfPassengers: Number(req.body.passengers),
+      RegularMaintenance: Number(req.body.carmaintenance),
       User_idUser: req.body.userId,
     };
 
@@ -320,7 +319,7 @@ class QController {
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
-
+    console.log("The services Value : ", req.body.serviceValues);
     let result;
 
     result = await QModel.insertFood(req.body.foodValue);
@@ -331,16 +330,23 @@ class QController {
     if (!result) {
       throw new HttpException(500, "Something went wrong with your home");
     }
-    result = await QModel.insertServices(req.body.serviceValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your services");
-    }
+
     result = await QModel.insertTransport(req.body.transportValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your transport");
     }
 
-    result = calculateCO2(req.body.foodValue, req.body.homeValues, req.body.serviceValues, req.body.transportValues);
+    result = await QModel.insertServices(req.body.serviceValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your services");
+    }
+
+    result = calculateCO2(
+      req.body.foodValue,
+      req.body.homeValues,
+      req.body.serviceValues,
+      req.body.transportValues
+    );
     console.log("This is the result log: ", result);
     res.status(201).send({ result });
   };
@@ -358,17 +364,18 @@ class QController {
     if (!result) {
       throw new HttpException(500, "Something went wrong with your home");
     }
-    result = await QModel.updatetServices(req.body.serviceValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your services");
-    }
-    result = await QModel.updateShopping(req.body.purchaseValues);
-    if (!result) {
-      throw new HttpException(500, "Something went wrong with your shopping");
-    }
+    // result = await QModel.updateShopping(req.body.purchaseValues);
+    // if (!result) {
+    //   throw new HttpException(500, "Something went wrong with your shopping");
+    // }
     result = await QModel.updateTransport(req.body.transportValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your transport");
+    }
+
+    result = await QModel.updatetServices(req.body.serviceValues);
+    if (!result) {
+      throw new HttpException(500, "Something went wrong with your services");
     }
 
     res.status(201).send(result);

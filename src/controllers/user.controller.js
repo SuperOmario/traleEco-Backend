@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const speakeasy = require("speakeasy");
+const qrcode = require("qrcode");
 dotenv.config();
 
 /******************************************************************************
@@ -57,6 +59,10 @@ class UserController {
 
     await this.hashPassword(req);
 
+    const secret = speakeasy.generateSecret({
+      name: req.email,
+    });
+
     const result = await UserModel.create(req.body);
 
     if (!result) {
@@ -64,7 +70,19 @@ class UserController {
     } else if (result == "User Exist")
       throw new HttpException(401, "User Already Exist");
 
-    res.status(201).send("User was created!");
+    res.status(201).send({ secret });
+  };
+
+  verify2fa = async (req, res, next) => {
+    this.checkValidation(req);
+
+    const response = speakeasy.totp.verify({
+      secret: req.secret,
+      encoding: "ascii",
+      token: req.code,
+    });
+    console.log("The verification is : ", response);
+    res.status(201).send(response);
   };
 
   updateUser = async (req, res, next) => {

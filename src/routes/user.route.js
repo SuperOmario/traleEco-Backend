@@ -28,6 +28,11 @@ router.post(
   createUserSchema,
   awaitHandlerFactory(userController.createUser)
 ); // localhost:3000/api/users
+router.post(
+  "/regverify",
+  createUserSchema,
+  awaitHandlerFactory(userController.verify2fa)
+); // localhost:3000/api/users
 router.patch(
   "/id/:id",
   auth(Role.Admin),

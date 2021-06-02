@@ -91,16 +91,30 @@ class QModel {
     return affectedRows;
   };
 
-  insertServices = async ({ paper, clothing, phone, tv, internet, userId }) => {
+  insertServices = async ({
+    office,
+    clothing,
+    phone,
+    tv,
+    internet,
+    userId,
+  }) => {
     const sql = `INSERT INTO Services (
-        Paper,
+        Office,
         Clothing,
         Phone,
         TV,
         Internet,
         User_idUser) VALUES (?,?,?,?,?,?)`;
 
-    const result = await query(sql, [paper, clothing, phone, tv,  internet, userId]);
+    const result = await query(sql, [
+      office,
+      clothing,
+      phone,
+      tv,
+      internet,
+      userId,
+    ]);
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;

@@ -121,11 +121,8 @@ class QModel {
   };
 
   insertHome = async ({
-    heating,
     brating,
     homesize,
-    electricity,
-    green,
     plastic,
     glass,
     paper,
@@ -133,23 +130,18 @@ class QModel {
     userId,
   }) => {
     const sql = `INSERT INTO Home
-        ( PrimaryHeating,
+        (
           BERRating,
           HomeSize,
-          Electricity,
-          GreenElectricity,
           RecyclePlastic,
           RecycleGlass,
           RecyclePaper,
           RecycleCans,
-          User_idUser) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+          User_idUser) VALUES (?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
-      heating,
       brating,
       homesize,
-      electricity,
-      green,
       plastic,
       glass,
       paper,
@@ -191,31 +183,19 @@ class QModel {
     return affectedRows;
   };
 
-  insertTransport = async ({
-    vehicle,
-    fuel,
-    milage,
-    engine,
-    passengers,
-    carmaintenance,
-    userId,
-  }) => {
+  insertTransport = async ({ vehicle, fuel, milage, passengers, userId }) => {
     const sql = `INSERT INTO Transport
         ( MainVehicle,
           FuelType,
           Milage,
-          EngineSize,
           AverageNoOfPassengers,
-          RegularMaintenance,
-          User_idUser) VALUES (?,?,?,?,?,?,?)`;
+          User_idUser) VALUES (?,?,?,?,?)`;
 
     const result = await query(sql, [
       vehicle,
       fuel,
       milage,
-      engine,
       passengers,
-      carmaintenance,
       userId,
     ]);
     const affectedRows = result ? result.affectedRows : 0;

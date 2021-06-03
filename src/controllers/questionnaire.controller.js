@@ -134,11 +134,8 @@ class QController {
     this.checkValidation(req);
 
     const updateValues = {
-      PrimaryHeating: req.body.heating,
       BERRating: req.body.brating,
       HomeSize: req.body.homesize,
-      Electricity: req.body.electricity,
-      GreenElectricity: req.body.green,
       RecyclePlastic: req.body.plastic,
       RecycleGlass: req.body.glass,
       RecyclePaper: req.body.paper,
@@ -288,9 +285,7 @@ class QController {
       MainVehicle: Number(req.body.vehicle),
       FuelType: Number(req.body.fuel),
       Milage: Number(req.body.milage),
-      EngineSize: Number(req.body.engine),
       AverageNoOfPassengers: Number(req.body.passengers),
-      RegularMaintenance: Number(req.body.carmaintenance),
       User_idUser: req.body.userId,
     };
 

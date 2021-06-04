@@ -1,4 +1,5 @@
 const QModel = require("../models/questionnaire.model");
+const CalcModel = require("../models/calc.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
 const calculateCO2 = require("../calculator/calculator");
@@ -281,7 +282,7 @@ class QController {
   };
   updateTransport = async (req, res, next) => {
     this.checkValidation(req);
-    console.log("This is the data to update : ", req.body);
+
     const updateValues = {
       MainVehicle: Number(req.body.vehicle),
       FuelType: Number(req.body.fuel),
@@ -315,15 +316,8 @@ class QController {
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
+    console.log("This is the body of the request :", req.body);
     let result;
-
-    result = calculateCO2(
-      req.body.foodValue,
-      req.body.homeValues,
-      req.body.serviceValues,
-      req.body.transportValues
-    );
-    console.log("This is the result log: ", result);
 
     result = await QModel.insertFood(req.body.foodValue);
     if (!result) {
@@ -350,7 +344,20 @@ class QController {
       req.body.serviceValues,
       req.body.transportValues
     );
-    console.log("This is the result log: ", result);
+
+    let cabornFootPrint = { ...result };
+
+    cabornFootPrint["User_idUser"] = req.body.userId;
+
+    const insertCalc = await CalcModel.create(cabornFootPrint);
+
+    if (insertCalc < 1) {
+      throw new HttpException(
+        500,
+        "Could not save carbon footprint calculation"
+      );
+    }
+
     res.status(201).send({ result });
   };
 

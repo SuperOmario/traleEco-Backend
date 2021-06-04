@@ -1,6 +1,8 @@
 module.exports = {
-    plasticCO2 : 0.05808,
-    glassCO2 : 0.0013629,
-    paperCO2 : 0.0624078,
-    foilCO2 : 0.05808
+    plasticCO2 : 58.08,
+    glassCO2 : 1.3629,
+    paperCO2 : 62.4078,
+    foilCO2 : 58.08
 }
+
+//carbon by not recycling in kg

@@ -34,8 +34,6 @@ class QModel {
 
     const result = await query(sql, [...values, id]);
 
-    console.log("Helo :", result);
-
     return result;
   };
 

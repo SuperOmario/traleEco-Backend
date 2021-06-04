@@ -15,14 +15,15 @@ class QController {
    ******************************************************************************/
 
   getAllFood = async (req, res, next) => {
-    let foodList = await QModel.find("Food");
-    if (!foodList.length) {
+    let foodList = await UserModel.find();
+    if (!userList.length) {
       throw new HttpException(404, "Food not found");
     }
 
-    foodList = foodList.map((food) => {
-      return food;
-    });
+    // foodList = foodList.map((user) => {
+    //   const { password, ...userWithoutPassword } = user;
+    //   return userWithoutPassword;
+    // });
 
     res.send(foodList);
   };
@@ -314,8 +315,15 @@ class QController {
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
-    console.log("The services Value : ", req.body.serviceValues);
     let result;
+
+    result = calculateCO2(
+      req.body.foodValue,
+      req.body.homeValues,
+      req.body.serviceValues,
+      req.body.transportValues
+    );
+    console.log("This is the result log: ", result);
 
     result = await QModel.insertFood(req.body.foodValue);
     if (!result) {
@@ -375,22 +383,6 @@ class QController {
 
     res.status(201).send(result);
   };
-
-  // insertAll = async (req, res, next) => {
-  //   this.checkValidation(req);
-
-  //   let result;
-
-  //   result = calculateFoodCO2(req.body.foodValue);
-
-  //   console.log("The data returned is : ", result);
-
-  //   if (!result) {
-  //     throw new HttpException(500, "Something went wrong with your transport");
-  //   }
-
-  //   res.send(result);
-  // };
 
   checkValidation = (req) => {
     const errors = validationResult(req);

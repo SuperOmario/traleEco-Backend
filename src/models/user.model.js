@@ -1,6 +1,8 @@
 const query = require("../db/db-connection").query;
 const { multipleColumnSet } = require("../utils/common.utils");
 const Role = require("../utils/userRoles.utils");
+const bcrypt = require("bcryptjs");
+
 class UserModel {
   tableName = "User";
 
@@ -28,13 +30,41 @@ class UserModel {
     return result[0];
   };
 
+  findUser = async (email) => {
+    const sql = `SELECT * FROM ${this.tableName}
+    WHERE Email = ?`;
+
+    const result = await query(sql, email);
+    // return back the first row (user)
+    return result[0];
+  };
+
+  insertToken = async (idUser, token) => {
+    let sql = `SELECT * FROM Tokens
+    WHERE idUser = ?`;
+
+    let found = await query(sql, idUser);
+
+    if (found.length != 0) {
+      return "Token Exist";
+    }
+    const created = Date.now();
+
+    sql = `INSERT INTO Tokens
+        (idUser, token, created, expires) VALUES (?,?,?,?)`;
+
+    const result = await query(sql, [idUser, token, created, 3600]);
+    const affectedRows = result ? result.affectedRows : 0;
+
+    return affectedRows;
+  };
+
   create = async ({ username, password, email }) => {
     let sql = `SELECT * FROM ${this.tableName}
     WHERE Email = ?`;
 
     let found = await query(sql, email);
 
-    console.log("Value of found", found.length);
     if (found.length != 0) {
       return "User Exist";
     }
@@ -58,6 +88,16 @@ class UserModel {
     return result;
   };
 
+  updateToken = async (params, idUser) => {
+    const { columnSet, values } = multipleColumnSet(params);
+
+    const sql = `UPDATE Tokens SET ${columnSet} WHERE idUser = ?`;
+
+    const result = await query(sql, [...values, id]);
+
+    return result;
+  };
+
   delete = async (id) => {
     const sql = `DELETE FROM ${this.tableName}
         WHERE id = ?`;
@@ -65,6 +105,34 @@ class UserModel {
     const affectedRows = result ? result.affectedRows : 0;
 
     return affectedRows;
+  };
+
+  resetPassword = async (userId, token, password) => {
+    let passwordResetToken = await Token.findOne({ userId });
+    if (!passwordResetToken) {
+      throw new Error("Invalid or expired password reset token");
+    }
+    const isValid = await bcrypt.compare(token, passwordResetToken.token);
+    if (!isValid) {
+      throw new Error("Invalid or expired password reset token");
+    }
+    const hash = await bcrypt.hash(password, Number(bcryptSalt));
+    await User.updateOne(
+      { _id: userId },
+      { $set: { password: hash } },
+      { new: true }
+    );
+    const user = await User.findById({ _id: userId });
+    sendEmail(
+      user.email,
+      "Password Reset Successfully",
+      {
+        name: user.name,
+      },
+      "./template/resetPassword.handlebars"
+    );
+    await passwordResetToken.deleteOne();
+    return true;
   };
 }
 

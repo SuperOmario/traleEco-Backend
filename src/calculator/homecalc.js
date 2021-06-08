@@ -2,10 +2,17 @@ const multipliers = require("../utils/homeMultipliers.utils");
 const calculateRecyclingCO2 = require("../calculator/recyclingcalc");
 
 const calculateHomeCO2 = (homeValues) => {
-  const { berrating, homesize, glass, plastic, paper, foil } = homeValues;
+  const {
+    brating,
+    homesize,
+    glass,
+    plastic,
+    paper,
+    recycleCans: cans,
+  } = homeValues;
   var multiplier = 0;
   //sets a multiplier based on the BER Rating of house
-  switch (berrating) {
+  switch (brating) {
     case "A1":
       multiplier = multipliers.A1Multiplier;
       break;
@@ -54,7 +61,7 @@ const calculateHomeCO2 = (homeValues) => {
   }
   //multiplies homesize by the multiplier we set and returns value
   let HomeCO2 = homesize * multiplier;
-  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, foil);
+  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, cans);
   return HomeCO2;
 };
 

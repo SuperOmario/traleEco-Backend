@@ -52,9 +52,7 @@ class QModel {
     chicken,
     pork,
     dairy,
-    waste,
     homegrown,
-    seasonal,
     local,
     userId,
   }) => {
@@ -65,12 +63,10 @@ class QModel {
       ChickenServings,
       PorkServings,
       DiaryServings,
-      FoodWaste,
       HomeGrown,
-      eatSeasonal,
       eatLocally,
       User_idUser
-          ) VALUES (?,?,?,?,?,?,?,?,?,?)`;
+          ) VALUES (?,?,?,?,?,?,?,?)`;
 
     const result = await query(sql, [
       fish,
@@ -78,9 +74,7 @@ class QModel {
       chicken,
       pork,
       dairy,
-      waste,
       homegrown,
-      seasonal,
       local,
       userId,
     ]);

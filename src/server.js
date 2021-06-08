@@ -6,6 +6,8 @@ const errorMiddleware = require("./middleware/error.middleware");
 const userRouter = require("./routes/user.route");
 const questionnaireRouter = require("./routes/questionnaire.route");
 const calcRouter = require("./routes/calc.route");
+
+const flash = require("express-flash");
 const goalRouter = require("./routes/goal.route");
 
 // Init express
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
+app.use(flash());
 
 app.use(`/api/users`, userRouter);
 app.use(`/api/questionnaire`, questionnaireRouter);

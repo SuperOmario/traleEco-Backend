@@ -63,9 +63,7 @@ class QController {
       ChickenServings: req.body.chicken,
       PorkServings: req.body.pork,
       DiaryServings: req.body.dairy,
-      FoodWaste: req.body.waste,
       HomeGrown: req.body.homegrown,
-      eatSeasonal: req.body.seasonal,
       eatLocally: req.body.local,
       User_idUser: req.body.userId,
     };
@@ -316,7 +314,6 @@ class QController {
 
   insertAll = async (req, res, next) => {
     this.checkValidation(req);
-    console.log("This is the body of the request :", req.body);
     let result;
 
     result = await QModel.insertFood(req.body.foodValue);
@@ -348,6 +345,7 @@ class QController {
     let cabornFootPrint = { ...result };
 
     cabornFootPrint["User_idUser"] = req.body.userId;
+    console.log("The Data to be saved is : ", cabornFootPrint);
 
     const insertCalc = await CalcModel.create(cabornFootPrint);
 

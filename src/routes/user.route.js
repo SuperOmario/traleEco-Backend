@@ -28,10 +28,10 @@ router.post(
   createUserSchema,
   awaitHandlerFactory(userController.createUser)
 ); // localhost:3000/api/users
+router.post("/regverify", awaitHandlerFactory(userController.verify2fa)); // localhost:3000/api/users
 router.post(
-  "/regverify",
-  createUserSchema,
-  awaitHandlerFactory(userController.verify2fa)
+  "/requestreset",
+  awaitHandlerFactory(userController.requestPasswordReset)
 ); // localhost:3000/api/users
 router.patch(
   "/id/:id",

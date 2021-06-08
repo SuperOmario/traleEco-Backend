@@ -5,7 +5,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const speakeasy = require("speakeasy");
+const sendEmail = require("../utils/email/sendEmail");
+const crypto = require("crypto");
 const qrcode = require("qrcode");
+const bcryptSalt = process.env.BCRYPT_SALT;
 dotenv.config();
 
 /******************************************************************************
@@ -60,7 +63,7 @@ class UserController {
     await this.hashPassword(req);
 
     const secret = speakeasy.generateSecret({
-      name: req.email,
+      name: "TraleEco",
     });
 
     const result = await UserModel.create(req.body);
@@ -76,10 +79,11 @@ class UserController {
   verify2fa = async (req, res, next) => {
     this.checkValidation(req);
 
+    console.log("The body : ", req.body);
     const response = speakeasy.totp.verify({
-      secret: req.secret,
+      secret: req.body.secret,
       encoding: "ascii",
-      token: req.code,
+      token: req.body.code,
     });
     console.log("The verification is : ", response);
     res.status(201).send(response);
@@ -149,6 +153,39 @@ class UserController {
     const { password, ...userWithoutPassword } = user;
 
     res.send({ ...userWithoutPassword, token });
+  };
+
+  requestPasswordReset = async (req, res, next) => {
+    const user = await UserModel.findUser(req.body.email);
+
+    if (!user) throw new Error("User does not exist");
+
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
+
+    let token = await UserModel.insertToken(user.idUser, hash);
+
+    const link = `${"traleeco.azurewebsites.net/resetpassword"}/passwordReset?token=${resetToken}&id=${
+      user.idUser
+    }`;
+    const email = await sendEmail(
+      user.Email,
+      "Password Reset Request",
+      { name: user.Username, link: link },
+      "./template/requestResetPassword.handlebars"
+    );
+
+    return link;
+    // };
+  };
+
+  resetPasswordController = async (req, res, next) => {
+    const resetPasswordService = await resetPassword(
+      req.body.userId,
+      req.body.token,
+      req.body.password
+    );
+    return res.json(resetPasswordService);
   };
 
   checkValidation = (req) => {

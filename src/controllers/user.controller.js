@@ -165,7 +165,7 @@ class UserController {
 
     let token = await UserModel.insertToken(user.idUser, hash);
 
-    const link = `${"localhost:3001"}/passwordReset?token=${resetToken}&id=${
+    const link = `${"traleeco.azurewebsites.net"}/passwordReset?token=${resetToken}&id=${
       user.idUser
     }`;
     const result = await sendEmail(

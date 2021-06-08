@@ -59,6 +59,16 @@ class UserModel {
     return affectedRows;
   };
 
+  findTokne = async (userId) => {
+    const sql = `SELECT * FROM Tokens
+    WHERE idUser = ?`;
+
+    const result = await query(sql, userId);
+
+    // return back the first row (user)
+    return result[0];
+  };
+
   create = async ({ username, password, email }) => {
     let sql = `SELECT * FROM ${this.tableName}
     WHERE Email = ?`;
@@ -81,7 +91,7 @@ class UserModel {
   update = async (params, id) => {
     const { columnSet, values } = multipleColumnSet(params);
 
-    const sql = `UPDATE user SET ${columnSet} WHERE id = ?`;
+    const sql = `UPDATE User SET ${columnSet} WHERE idUser = ?`;
 
     const result = await query(sql, [...values, id]);
 
@@ -107,32 +117,13 @@ class UserModel {
     return affectedRows;
   };
 
-  resetPassword = async (userId, token, password) => {
-    let passwordResetToken = await Token.findOne({ userId });
-    if (!passwordResetToken) {
-      throw new Error("Invalid or expired password reset token");
-    }
-    const isValid = await bcrypt.compare(token, passwordResetToken.token);
-    if (!isValid) {
-      throw new Error("Invalid or expired password reset token");
-    }
-    const hash = await bcrypt.hash(password, Number(bcryptSalt));
-    await User.updateOne(
-      { _id: userId },
-      { $set: { password: hash } },
-      { new: true }
-    );
-    const user = await User.findById({ _id: userId });
-    sendEmail(
-      user.email,
-      "Password Reset Successfully",
-      {
-        name: user.name,
-      },
-      "./template/resetPassword.handlebars"
-    );
-    await passwordResetToken.deleteOne();
-    return true;
+  deleteToken = async (id) => {
+    const sql = `DELETE FROM Tokens
+        WHERE idUser = ?`;
+    const result = await query(sql, id);
+    const affectedRows = result ? result.affectedRows : 0;
+
+    return affectedRows;
   };
 }
 

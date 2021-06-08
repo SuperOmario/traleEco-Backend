@@ -165,27 +165,48 @@ class UserController {
 
     let token = await UserModel.insertToken(user.idUser, hash);
 
-    const link = `${"traleeco.azurewebsites.net/resetpassword"}/passwordReset?token=${resetToken}&id=${
+    const link = `${"localhost:3001"}/passwordReset?token=${resetToken}&id=${
       user.idUser
     }`;
-    const email = await sendEmail(
+    const result = await sendEmail(
       user.Email,
       "Password Reset Request",
       { name: user.Username, link: link },
       "./template/requestResetPassword.handlebars"
     );
 
-    return link;
+    res.status(201).send("Successful!");
     // };
   };
 
   resetPasswordController = async (req, res, next) => {
-    const resetPasswordService = await resetPassword(
-      req.body.userId,
+    let passwordResetToken = await UserModel.findTokne(req.body.userId);
+
+    if (!passwordResetToken) {
+      throw new Error("Invalid or expired password reset token");
+    }
+    const isValid = await bcrypt.compare(
       req.body.token,
-      req.body.password
+      passwordResetToken.token
     );
-    return res.json(resetPasswordService);
+
+    if (!isValid) {
+      throw new Error("Invalid or expired password reset token");
+    }
+
+    await this.hashPassword(req);
+
+    const result = await UserModel.update(
+      { Password: req.body.password },
+      req.body.userId
+    );
+
+    if (result.affectedRows < 1)
+      throw new HttpException(401, "Passowrd was not updated");
+
+    await UserModel.deleteToken(req.body.userId);
+
+    res.status(201).send("Successful!");
   };
 
   checkValidation = (req) => {

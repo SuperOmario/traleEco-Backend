@@ -33,6 +33,10 @@ router.post(
   "/requestreset",
   awaitHandlerFactory(userController.requestPasswordReset)
 ); // localhost:3000/api/users
+router.post(
+  "/resetpassword",
+  awaitHandlerFactory(userController.resetPasswordController)
+);
 router.patch(
   "/id/:id",
   auth(Role.Admin),

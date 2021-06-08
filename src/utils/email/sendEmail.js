@@ -30,14 +30,13 @@ const sendEmail = async (email, subject, payload, template) => {
     // Send email
     transporter.sendMail(options(), (error, info) => {
       if (error) {
-        console.log("The data got an error:", error);
         return error;
       } else {
-        console.log("The data returned :");
-        return res.status(200).json({
-          success: true,
-          info,
-        });
+        return "Successful";
+        // {
+        //   success: true,
+        //   info,
+        // };
       }
     });
   } catch (error) {
@@ -50,7 +49,7 @@ Example:
 sendEmail(
   "youremail@gmail.com,
   "Email subject",
-  { name: "Eze" },
+  { name: "Name" },
   "./templates/layouts/main.handlebars"
 );
 */

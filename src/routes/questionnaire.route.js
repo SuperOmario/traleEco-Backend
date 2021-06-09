@@ -12,25 +12,21 @@ const calculator = require("../calculator/calculator");
 router.get("/food", awaitHandlerFactory(qController.getAllFood));
 router.get("/home", awaitHandlerFactory(qController.getAllHome));
 router.get("/services", awaitHandlerFactory(qController.getAllServices));
-router.get("/shopping", awaitHandlerFactory(qController.getAllShopping));
+// router.get("/shopping", awaitHandlerFactory(qController.getAllShopping));
 router.get("/transport", awaitHandlerFactory(qController.getAllTransport));
 
 //Gets by Id
 router.get("/food/:id", awaitHandlerFactory(qController.getFoodById));
 router.get("/home/:id", awaitHandlerFactory(qController.getHomeById));
 router.get("/services/:id", awaitHandlerFactory(qController.getServicesById));
-router.get("/shopping/:id", awaitHandlerFactory(qController.getShoppingById));
+// router.get("/shopping/:id", awaitHandlerFactory(qController.getShoppingById));
 router.get("/transport/:id", awaitHandlerFactory(qController.getTransportById));
 
 //Posts
-router.post(
-  "/food",
-  createFoodSchema,
-  awaitHandlerFactory(qController.insertFood)
-);
+router.post("/food", awaitHandlerFactory(qController.insertFood));
 router.post("/home", awaitHandlerFactory(qController.insertHome));
 router.post("/services", awaitHandlerFactory(qController.insertServices));
-router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
+// router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
 router.post("/transport", awaitHandlerFactory(qController.insertTransport));
 router.post(
   "/submit",
@@ -67,12 +63,12 @@ router.post(
 //Puts
 router.put(
   "/food/:id",
-  createFoodSchema,
+
   awaitHandlerFactory(qController.updateFood)
 );
 router.put("/home/:id", awaitHandlerFactory(qController.updateHome));
 router.put("/services/:id", awaitHandlerFactory(qController.updateServices));
-router.put("/shopping/:id", awaitHandlerFactory(qController.updateShopping));
+// router.put("/shopping/:id", awaitHandlerFactory(qController.updateShopping));
 router.put("/transport/:id", awaitHandlerFactory(qController.updateTransport));
 
 module.exports = router;

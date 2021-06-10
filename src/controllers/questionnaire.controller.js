@@ -282,9 +282,9 @@ class QController {
     this.checkValidation(req);
 
     const updateValues = {
-      MainVehicle: Number(req.body.vehicle),
-      FuelType: Number(req.body.fuel),
-      Milage: Number(req.body.milage),
+      MainVehicle: req.body.vehicle,
+      FuelType: req.body.fuel,
+      Milage: req.body.milage,
       AverageNoOfPassengers: Number(req.body.passengers),
       User_idUser: req.body.userId,
     };

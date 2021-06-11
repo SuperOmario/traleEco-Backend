@@ -139,7 +139,7 @@ class QController {
       RecyclePlastic: req.body.plastic,
       RecycleGlass: req.body.glass,
       RecyclePaper: req.body.paper,
-      RecycleCans: req.body.cans,
+      RecycleCans: req.body.recycleCans,
       User_idUser: req.body.userId,
     };
 

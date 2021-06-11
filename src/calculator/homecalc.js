@@ -8,7 +8,7 @@ const calculateHomeCO2 = (homeValues) => {
     glass,
     plastic,
     paper,
-    recycleCans: cans,
+    cans,
   } = homeValues;
   var multiplier = 0;
   //sets a multiplier based on the BER Rating of house

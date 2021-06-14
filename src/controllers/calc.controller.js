@@ -62,8 +62,8 @@ class QCalc {
     const { affectedRows, info } = result;
 
     const message = !affectedRows
-      ? "Carborn footprint not found"
-      : "Caborn footprint updated successfully";
+      ? "Carbon footprint not found"
+      : "Carbon footprint updated successfully";
 
     res.send({ message, info });
   };
@@ -88,10 +88,8 @@ class QCalc {
         value = calculateTransportCO2(req.body.data);
         break;
     }
-    console.log("The Value @  1: ", value);
-    value *= 0.0011;
 
-    console.log("The Value @  2: ", value);
+    value *= 0.0011;
 
     const calc = await CalcModel.findOne({ User_idUser: req.params.id });
 

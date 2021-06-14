@@ -118,7 +118,7 @@ class QModel {
     plastic,
     glass,
     paper,
-    cans,
+    recycleCans,
     userId,
   }) => {
     const sql = `INSERT INTO Home
@@ -137,7 +137,7 @@ class QModel {
       plastic,
       glass,
       paper,
-      cans,
+      recycleCans,
       userId,
     ]);
     const affectedRows = result ? result.affectedRows : 0;

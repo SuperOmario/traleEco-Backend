@@ -8,7 +8,7 @@ const calculateHomeCO2 = (homeValues) => {
     glass,
     plastic,
     paper,
-    cans,
+    recycleCans,
   } = homeValues;
   var multiplier = 0;
   //sets a multiplier based on the BER Rating of house
@@ -62,11 +62,11 @@ const calculateHomeCO2 = (homeValues) => {
   //multiplies homesize by the multiplier we set and returns value
   let HomeCO2 = homesize * multiplier;
 
-  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, cans);
+  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, recycleCans);
   return HomeCO2;
 }
 
-const calculateRecyclingCO2 = (glass, plastic, paper, cans) => {
+const calculateRecyclingCO2 = (glass, plastic, paper, recycleCans) => {
   //average yearly waste per person (may be needed later for rework)
   // var plasticWaste = 0.033;
   // var glassWaste = 0.00413;
@@ -93,7 +93,7 @@ const calculateRecyclingCO2 = (glass, plastic, paper, cans) => {
   if (paper == "Y") {
     paperCO2 = 0;
   }
-  if (cans == "Y") {
+  if (recycleCans == "Y") {
     cansCO2 = 0;
   }
   const wasteCO2 = plasticCO2 + glassCO2 + paperCO2 + cansCO2;

@@ -62,7 +62,9 @@ const calculateHomeCO2 = (homeValues) => {
   //multiplies homesize by the multiplier we set and returns value
   let HomeCO2 = homesize * multiplier;
 
-
+  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, cans);
+  return HomeCO2;
+}
 
 const calculateRecyclingCO2 = (glass, plastic, paper, cans) => {
   //average yearly waste per person (may be needed later for rework)
@@ -76,7 +78,6 @@ const calculateRecyclingCO2 = (glass, plastic, paper, cans) => {
   var glassCO2 = recyclingmultipliers.glassCO2;
   var paperCO2 = recyclingmultipliers.paperCO2;
   var cansCO2 = recyclingmultipliers.cansCO2;
-
   //CO2 reduced per tonne of recycling (This just results in zero emmissions if used so I simplified the below section - may need to be reworked)
   // var plasticCO2Reduction = 1.76;
   // var glassCO2Reduction = .33;
@@ -95,14 +96,8 @@ const calculateRecyclingCO2 = (glass, plastic, paper, cans) => {
   if (cans == "Y") {
     cansCO2 = 0;
   }
-
   const wasteCO2 = plasticCO2 + glassCO2 + paperCO2 + cansCO2;
   return wasteCO2;
 };
-
-  HomeCO2 += calculateRecyclingCO2(glass, plastic, paper, cans);
-  return HomeCO2;
-
-}
 
 module.exports = calculateHomeCO2;

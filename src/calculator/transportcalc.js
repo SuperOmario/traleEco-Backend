@@ -5,7 +5,6 @@ const calculateTransportCO2 = (transportValue) => {
   let transportCO2 = 0;
   switch (vehicle) {
     case "Car" :
-      console.log("Car");
       switch (fuel) {
         case "Petrol" :
           transportCO2 = transportMultipliers.CarPetrolAvgC02PerKM * milage;
@@ -14,33 +13,35 @@ const calculateTransportCO2 = (transportValue) => {
           transportCO2 = transportMultipliers.CarDieselAvgC02PerKM * milage;
           break;
         case "Hybrid" :
-          transportCO2 = transportMultipliers.CarHybridAvgC02PerKM * milage;
+          transportCO2 = transportMultipliers.CarHybridAvgCO2PerKM * milage;
           break;
       }
         transportCO2 = transportCO2 / passengers;
         return transportCO2;;
     case "Van" :
-      console.log("Van");
       switch (fuel) {
         case "Petrol":
-          transportCO2 = transportMultipliers.VanPetrolAvgC02PerKM * milage;
+          transportCO2 = transportMultipliers.VanPetrolAvgCO2PerKM * milage;
           break;
         case "Diesel" :
-          transportCO2 = transportMultipliers.VanDieselAvgC02PerKM * milage;
+          transportCO2 = transportMultipliers.VanDieselAvgCO2PerKM * milage;
           break;
       }
+      console.log(transportCO2)
       transportCO2 = transportCO2 / passengers;
-      return transportCO2;;
-    case "Motorcycle":
-      console.log("Motorcycle");
+      return transportCO2;
+    case "Motorbike":
       switch (fuel) {
         case "Petrol":
-          transportCO2 = transportMultipliers.MotorcyclePetrolAvgC02PerKM * milage;
+          transportCO2 = transportMultipliers.MotorcyclePetrolAvgCO2PerKM * milage;
           break;
       } 
       transportCO2 = transportCO2 / passengers;
-      return transportCO2;;
+      return transportCO2;
+    case "Bicycle" :
+      return 0;
   }
+
 };
 
 module.exports = calculateTransportCO2;

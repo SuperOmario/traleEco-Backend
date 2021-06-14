@@ -70,15 +70,12 @@ const calculateOffset = (FoodCO2, local, homegrown) => {
   let homegrownOffset = 0;
 
   // if local food is purchased this offsets the CO2 produced by about 6%
-  if (local >= 1) {
+  if (local == "Y") {
     localOffset = (FoodCO2 * 0.06).toFixed(2);
   }
   // //percentage of food which is homegrown offsets CO2 by a maximum of 6%
   if (homegrown > 0) {
-    let hgOffsetPercentage = homegrown * 0.06;
-    if (hgOffsetPercentage > 0.06) {
-      hgOffsetPercentage = 0.06
-    }
+    let hgOffsetPercentage = homegrown / 100;
     homegrownOffset = (FoodCO2 * hgOffsetPercentage).toFixed(2);
   }
   FoodCO2 -= localOffset;

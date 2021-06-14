@@ -57,8 +57,8 @@ class QCalc {
     const { affectedRows, info } = result;
 
     const message = !affectedRows
-      ? "Carborn footprint not found"
-      : "Caborn footprint updated successfully";
+      ? "Carbon footprint not found"
+      : "Carbon footprint updated successfully";
 
     res.send({ message, info });
   };

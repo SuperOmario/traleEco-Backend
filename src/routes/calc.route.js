@@ -7,7 +7,7 @@ const awaitHandlerFactory = require("../middleware/awaitHandlerFactory.middlewar
 router.get("/", awaitHandlerFactory(calcController.getAllCalc));
 router.get("/:id", awaitHandlerFactory(calcController.getCalcById));
 router.post("/", awaitHandlerFactory(calcController.insertCalc));
-router.put("/:id", awaitHandlerFactory(calcController.updateCalc));
+router.put("update/:id", awaitHandlerFactory(calcController.updateCalc));
 
 // router.put("/id/:id", awaitHandlerFactory(calcController.updateCalc));
 

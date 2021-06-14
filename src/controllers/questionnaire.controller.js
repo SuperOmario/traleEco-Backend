@@ -342,12 +342,12 @@ class QController {
       req.body.transportValues
     );
 
-    let cabornFootPrint = { ...result };
+    let carbonFootPrint = { ...result };
 
-    cabornFootPrint["User_idUser"] = req.body.userId;
-    console.log("The Data to be saved is : ", cabornFootPrint);
+    carbonFootPrint["User_idUser"] = req.body.userId;
+    console.log("The Data to be saved is : ", carbonFootPrint);
 
-    const insertCalc = await CalcModel.create(cabornFootPrint);
+    const insertCalc = await CalcModel.create(carbonFootPrint);
 
     if (insertCalc < 1) {
       throw new HttpException(
@@ -355,7 +355,7 @@ class QController {
         "Could not save carbon footprint calculation"
       );
     }
-
+    console.log("Carbon footprint inserted")
     res.status(201).send({ result });
   };
 
@@ -381,7 +381,7 @@ class QController {
       throw new HttpException(500, "Something went wrong with your transport");
     }
 
-    result = await QModel.updatetServices(req.body.serviceValues);
+    result = await QModel.updateServices(req.body.serviceValues);
     if (!result) {
       throw new HttpException(500, "Something went wrong with your services");
     }

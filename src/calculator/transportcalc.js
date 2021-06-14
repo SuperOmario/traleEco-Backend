@@ -16,6 +16,9 @@ const calculateTransportCO2 = (transportValue) => {
           transportCO2 = transportMultipliers.CarHybridAvgCO2PerKM * milage;
           break;
       }
+        if (passengers == 0) {
+          return transportCO2;;
+        }
         transportCO2 = transportCO2 / passengers;
         return transportCO2;;
     case "Van" :
@@ -27,7 +30,9 @@ const calculateTransportCO2 = (transportValue) => {
           transportCO2 = transportMultipliers.VanDieselAvgCO2PerKM * milage;
           break;
       }
-      console.log(transportCO2)
+      if (passengers == 0) {
+        return transportCO2;;
+      }
       transportCO2 = transportCO2 / passengers;
       return transportCO2;
     case "Motorbike":
@@ -36,6 +41,9 @@ const calculateTransportCO2 = (transportValue) => {
           transportCO2 = transportMultipliers.MotorcyclePetrolAvgCO2PerKM * milage;
           break;
       } 
+      if (passengers == 0) {
+        return transportCO2;;
+      }
       transportCO2 = transportCO2 / passengers;
       return transportCO2;
     case "Bicycle" :

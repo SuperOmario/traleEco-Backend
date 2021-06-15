@@ -25,12 +25,10 @@ router.get("/transport/:id", awaitHandlerFactory(qController.getTransportById));
 //Posts
 router.post(
   "/food",
-  createFoodSchema,
   awaitHandlerFactory(qController.insertFood)
 );
 router.post("/home", awaitHandlerFactory(qController.insertHome));
 router.post("/services", awaitHandlerFactory(qController.insertServices));
-router.post("/shopping", awaitHandlerFactory(qController.insertShopping));
 router.post("/transport", awaitHandlerFactory(qController.insertTransport));
 router.post(
   "/submit",

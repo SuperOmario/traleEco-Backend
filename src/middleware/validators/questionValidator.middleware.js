@@ -11,7 +11,7 @@ exports.createFoodSchema = [
   body("waste").optional().isNumeric().withMessage("Must be a number"),
   body("homegrown").optional().isNumeric().withMessage("Must be a number"),
   body("seasonal").optional().isNumeric().withMessage("Must be a number"),
-  body("local").optional().isNumeric().withMessage("Must be a number")
+  body("local").optional().isString().withMessage("Must be a number")
 ];
 
 exports.updateFoodSchema = [
@@ -23,7 +23,7 @@ exports.updateFoodSchema = [
   body("waste").optional().isNumeric().withMessage("Must be a number"),
   body("homegrown").optional().isNumeric().withMessage("Must be a number"),
   body("seasonal").optional().isNumeric().withMessage("Must be a number"),
-  body("local").optional().isNumeric().withMessage("Must be a number"),
+  body("local").optional().isString().withMessage("Must be a number"),
   body().custom((value) => {
     return !!Object.keys(value).length;
   }).withMessage("Please provide required field to update").custom((value) => {

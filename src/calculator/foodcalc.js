@@ -2,7 +2,7 @@ const Mutlipliers = require("../utils/foodMultipliers.utils");
 
 //Calculates CO2 emissions from food by the tonne per year
 const calculateFoodCO2 = (foodValue) => {
-  const { meat, dairy, local, homegrown } = foodValue;
+  const { meat, fish, dairy, local, homegrown } = foodValue;
   let FoodCO2 = 0;
 
   // if vegan diet calculate vegan emissions

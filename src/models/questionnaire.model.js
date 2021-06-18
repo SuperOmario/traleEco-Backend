@@ -47,10 +47,8 @@ class QModel {
   };
 
   insertFood = async ({
+    meat,
     fish,
-    beef,
-    chicken,
-    pork,
     dairy,
     homegrown,
     local,
@@ -58,21 +56,17 @@ class QModel {
   }) => {
     const sql = `INSERT INTO Food
         (
+      MeatServings,
       FishServings,
-      BeefServings,
-      ChickenServings,
-      PorkServings,
       DiaryServings,
       HomeGrown,
       eatLocally,
       User_idUser
-          ) VALUES (?,?,?,?,?,?,?,?)`;
+          ) VALUES (?,?,?,?,?,?)`;
 
     const result = await query(sql, [
+      meat,
       fish,
-      beef,
-      chicken,
-      pork,
       dairy,
       homegrown,
       local,

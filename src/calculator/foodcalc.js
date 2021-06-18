@@ -2,10 +2,7 @@ const Mutlipliers = require("../utils/foodMultipliers.utils");
 
 //Calculates CO2 emissions from food by the tonne per year
 const calculateFoodCO2 = (foodValue) => {
-  const { beef, pork, chicken, fish, dairy, local, homegrown } = foodValue;
-  console.log(beef, pork, chicken, fish, dairy, local, homegrown);
-  const meat = beef + pork + chicken;
-
+  const { meat, dairy, local, homegrown } = foodValue;
   let FoodCO2 = 0;
 
   // if vegan diet calculate vegan emissions
@@ -14,19 +11,19 @@ const calculateFoodCO2 = (foodValue) => {
     FoodCO2 *= 365;
 
     // if local food is purchased this offsets the CO2 produced by about 6%
-  if (local == "Y") {
-    localOffset = (FoodCO2 * 0.06).toFixed(2);
-  }
-  FoodCO2 -= localOffset;
-  // //percentage of food which is homegrown offsets CO2 by a maximum of 6%
-  if (homegrown > 0) {
-    let hgOffsetPercentage = homegrown / 100;
-    homegrownOffset = (FoodCO2 * hgOffsetPercentage).toFixed(2);
-  }
+    if (local == "Y") {
+      localOffset = (FoodCO2 * 0.06).toFixed(2);
+    }
+    FoodCO2 -= localOffset;
+    // //percentage of food which is homegrown offsets CO2 by a maximum of 6%
+    if (homegrown > 0) {
+      let hgOffsetPercentage = homegrown / 100;
+      homegrownOffset = (FoodCO2 * hgOffsetPercentage).toFixed(2);
+    }
   
-  FoodCO2 -= homegrownOffset;
+    FoodCO2 -= homegrownOffset;
 
-  return FoodCO2.toFixed(2);
+    return FoodCO2.toFixed(2);
   }
   // //if not vegan, calculate based on days consuming fish and other meats
   let meatMultiplier = 0;

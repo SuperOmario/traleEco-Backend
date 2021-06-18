@@ -9,7 +9,8 @@ exports.createFoodSchema = [
   body("dairy").optional().isNumeric().withMessage("Must be a number"),
   body("waste").optional().isNumeric().withMessage("Must be a number"),
   body("homegrown").optional().isNumeric().withMessage("Must be a number"),
-  body("local").optional().isNumeric().withMessage("Must be a number"),
+  body("seasonal").optional().isNumeric().withMessage("Must be a number"),
+  body("local").optional().isString().withMessage("Must be a number"),
 ];
 
 exports.updateFoodSchema = [
@@ -20,8 +21,8 @@ exports.updateFoodSchema = [
   body("diary").optional().isNumeric().withMessage("Must be a number"),
   body("waste").optional().isNumeric().withMessage("Must be a number"),
   body("homegrown").optional().isNumeric().withMessage("Must be a number"),
-
-  body("local").optional().isNumeric().withMessage("Must be a number"),
+  body("seasonal").optional().isNumeric().withMessage("Must be a number"),
+  body("local").optional().isString().withMessage("Must be a number"),
   body()
     .custom((value) => {
       return !!Object.keys(value).length;
@@ -37,6 +38,7 @@ exports.updateFoodSchema = [
         "diary",
         "waste",
         "homegrown",
+        "seasonal",
         "local",
       ];
       return updates.every((update) => allowUpdates.includes(update));

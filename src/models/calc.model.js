@@ -60,7 +60,6 @@ class CalcModel {
       User_idUser,
     ]);
     const affectedRows = result ? result.affectedRows : 0;
-
     return affectedRows;
   };
 

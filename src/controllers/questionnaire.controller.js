@@ -59,9 +59,7 @@ class QController {
     // this.checkValidation(req);
     const updateValues = {
       FishServings: req.body.foodValue.fish,
-      BeefServings: req.body.foodValue.beef,
-      ChickenServings: req.body.foodValue.chicken,
-      PorkServings: req.body.foodValue.pork,
+      MeatServings: req.body.foodValue.meat,
       DiaryServings: req.body.foodValue.dairy,
       HomeGrown: req.body.foodValue.homegrown,
       eatLocally: req.body.foodValue.local,

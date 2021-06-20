@@ -20,7 +20,7 @@ const calculateFoodCO2 = (foodValue) => {
       let hgOffsetPercentage = homegrown / 100;
       homegrownOffset = (FoodCO2 * hgOffsetPercentage).toFixed(2);
     }
-  
+
     FoodCO2 -= homegrownOffset;
 
     return FoodCO2.toFixed(2);
@@ -45,17 +45,19 @@ const calculateFoodCO2 = (foodValue) => {
   if (7 - (meat + fish) > 0) {
     let vegDays = 7 - (meat + fish);
     FoodCO2 = (
-      (meat * meatMultiplier + fish * fishMultiplier + vegDays * vegMultiplier) *
+      (meat * meatMultiplier +
+        fish * fishMultiplier +
+        vegDays * vegMultiplier) *
       (365 / 7)
     ).toFixed(2);
-    console.log(vegDays)
+    console.log(vegDays);
   } else {
     FoodCO2 = (
       (meat * meatMultiplier + fish * fishMultiplier) *
       (365 / 7)
     ).toFixed(2);
   }
-  
+
   FoodCO2 = calculateOffset(FoodCO2, local, homegrown);
   return FoodCO2;
 };
@@ -74,7 +76,7 @@ const calculateOffset = (FoodCO2, local, homegrown) => {
     let hgOffsetPercentage = homegrown / 100;
     homegrownOffset = (FoodCO2 * hgOffsetPercentage).toFixed(2);
   }
-  
+
   FoodCO2 -= homegrownOffset;
   return FoodCO2;
 };

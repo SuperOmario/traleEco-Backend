@@ -60,11 +60,7 @@ router.post(
 // router.post("/calculate", calculator(req.body))
 
 //Puts
-router.put(
-  "/food/:id",
-
-  awaitHandlerFactory(qController.updateFood)
-);
+router.put("/food/:id", awaitHandlerFactory(qController.updateFood));
 router.put("/home/:id", awaitHandlerFactory(qController.updateHome));
 router.put("/services/:id", awaitHandlerFactory(qController.updateServices));
 // router.put("/shopping/:id", awaitHandlerFactory(qController.updateShopping));

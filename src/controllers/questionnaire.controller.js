@@ -56,14 +56,15 @@ class QController {
   };
 
   updateFood = async (req, res, next) => {
-    // this.checkValidation(req);
+    this.checkValidation(req);
+
     const updateValues = {
-      FishServings: req.body.foodValue.fish,
-      MeatServings: req.body.foodValue.meat,
-      DiaryServings: req.body.foodValue.dairy,
-      HomeGrown: req.body.foodValue.homegrown,
-      eatLocally: req.body.foodValue.local,
-      User_idUser: req.body.foodValue.userId,
+      MeatServings: req.body.meat,
+      FishServings: req.body.fish,
+      DiaryServings: req.body.dairy,
+      HomeGrown: req.body.homegrown,
+      eatLocally: req.body.local,
+      User_idUser: req.body.userId,
     };
 
     const { ...restOfUpdates } = updateValues;
@@ -353,7 +354,7 @@ class QController {
         "Could not save carbon footprint calculation"
       );
     }
-    console.log("Carbon footprint inserted")
+    console.log("Carbon footprint inserted");
     res.status(201).send({ result });
   };
 

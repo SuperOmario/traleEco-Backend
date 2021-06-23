@@ -7,12 +7,13 @@ const calculateFoodCO2 = (foodValue) => {
 
   // if vegan diet calculate vegan emissions
   if (meat + fish + dairy == 0) {
-    FoodCO2 = Mutlipliers.veganMultiplier * 7;
-    FoodCO2 *= 365;
+    FoodCO2 = Mutlipliers.veganMultiplier * (365);
 
     // if local food is purchased this offsets the CO2 produced by about 6%
     if (local == "Y") {
       localOffset = (FoodCO2 * 0.06).toFixed(2);
+    } else {
+      localOffset = 0;
     }
     FoodCO2 -= localOffset;
     // //percentage of food which is homegrown offsets CO2 by a maximum of 6%

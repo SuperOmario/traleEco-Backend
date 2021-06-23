@@ -1,4 +1,5 @@
 const UserModel = require("../models/user.model");
+const SettingsModel = require("../models/settings.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -8,6 +9,7 @@ const speakeasy = require("speakeasy");
 const sendEmail = require("../utils/email/sendEmail");
 const crypto = require("crypto");
 const qrcode = require("qrcode");
+const settingsModel = require("../models/settings.model");
 const bcryptSalt = process.env.BCRYPT_SALT;
 dotenv.config();
 
@@ -70,8 +72,11 @@ class UserController {
 
     if (!result) {
       throw new HttpException(500, "Something went wrong");
-    } else if (result == "User Exist")
-      throw new HttpException(401, "User Already Exist");
+    } else if (result == "User Exist") {
+      throw new HttpException(401, "User Already Exists");
+    }
+
+    const settings = await settingsModel.create({allowLeaderboard : "N", User_idUser : result});
 
     res.status(201).send({ secret });
   };

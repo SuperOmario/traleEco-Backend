@@ -25,7 +25,6 @@ const calculateTransportCO2 = (transportValue) => {
 
       console.log("Got here 3 @: ", transportCO2);
       return transportCO2;
-
     case "Van":
       switch (fuel) {
         case "Petrol":
@@ -53,6 +52,8 @@ const calculateTransportCO2 = (transportValue) => {
       transportCO2 = transportCO2 / passengers;
       return transportCO2;
     case "Bicycle":
+      return 0;
+    case "None":
       return 0;
   }
 };

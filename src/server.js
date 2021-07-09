@@ -7,9 +7,9 @@ const userRouter = require("./routes/user.route");
 const questionnaireRouter = require("./routes/questionnaire.route");
 const calcRouter = require("./routes/calc.route");
 const settingsRouter = require("./routes/settings.route");
-
 const flash = require("express-flash");
 const goalRouter = require("./routes/goal.route");
+const activitiesRouter = require("./routes/activities.route");
 
 // Init express
 const app = express();
@@ -28,7 +28,8 @@ app.use(`/api/users`, userRouter);
 app.use(`/api/questionnaire`, questionnaireRouter);
 app.use(`/api/calculator`, calcRouter);
 app.use(`/api/settings`, settingsRouter);
-// app.use(`/api/goals`, goalRouter);
+app.use(`/api/goals`, goalRouter);
+app.use(`/api/activities`, activitiesRouter);
 
 // 404 error
 app.all("*", (req, res, next) => {

@@ -1,7 +1,7 @@
 const query = require("../db/db-connection").query;
 const { multipleColumnSet } = require("../utils/common.utils");
-class GoalModel {
-    tableName = "Goal";
+class ActivitiesModel {
+    tableName = "Activities";
 
     find = async (params = {}) => {
         let sql = `SELECT * FROM ${this.tableName}`;
@@ -27,51 +27,34 @@ class GoalModel {
         return result[0];
     };
     
-    create = async ({ carbonOffSet, Status, idActivity, startDate, endDate, LastUpdated, idUser }) => {
+    create = async ({ Category, Title, Description, Duration, Points}) => {
         const sql = `INSERT INTO ${this.tableName}
-            (carbonOffSet, Status, idActivity, startDate, endDate, LastUpdated, idUser) VALUES (?,?,?,?,?,?,?)`;
+            (Category, Title, Description, Duration, Points) VALUES (?,?)`;
     
-        const result = await query(sql, [carbonOffSet, Status, idActivity, startDate, endDate, LastUpdated, idUser]);
+        const result = await query(sql, [description, idUser]);
         const affectedRows = result ? result.affectedRows : 0;
     
         return affectedRows;
     };
     
-    update = async (params, idGoal) => {
+    update = async (params, id) => {
         const { columnSet, values } = multipleColumnSet(params);
     
-        const sql = `UPDATE user SET ${columnSet} WHERE idGoal = ?`;
+        const sql = `UPDATE user SET ${columnSet} WHERE id = ?`;
     
-        const result = await query(sql, [...values, idGoal]);
+        const result = await query(sql, [...values, id]);
     
         return result;
     };
     
-    delete = async (idGoal) => {
+    delete = async (id) => {
         const sql = `DELETE FROM ${this.tableName}
-            WHERE idGoal = ?`;
-        const result = await query(sql, [idGoal]);
+            WHERE id = ?`;
+        const result = await query(sql, [id]);
         const affectedRows = result ? result.affectedRows : 0;
     
         return affectedRows;
     };
-
-    getAllForUser = async (idUser) => {
-        const sql = `SELECT * FROM ${this.tableName}
-            WHERE idUser = ?`;
-        const result = await query(sql, [idUser]);
-    
-        return result;
-    }
-
-    deleteAllForUser = async (idUser) => {
-        const sql = `DELETE FROM ${this.tableName}
-            WHERE idUser = ?`;
-        const result = await query(sql, [idUser]);
-        const affectedRows = result ? result.affectedRows : 0;
-    
-        return affectedRows;
-    }
 }
 
-module.exports = new GoalModel()
+module.exports = new ActivitiesModel()

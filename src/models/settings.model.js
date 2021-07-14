@@ -34,6 +34,19 @@ class SettingsModel {
     return leaderboard;
   };
 
+  getPointsLeaderboard = async () => {
+    const sql = `SELECT g.idUser, u.Username, SUM(g.carbonPoint) AS CarbonPoint from Goal AS g
+    JOIN User as u 
+    ON g.idUser = u.idUser
+    JOIN Settings AS s ON g.idUser = s.User_idUser
+    WHERE s.allowLeaderboard = 'Y'
+    GROUP BY idUser
+    ORDER BY CarbonPoint DESC`;
+
+    const leaderboard = await query(sql);
+    return leaderboard;
+  }
+
   findSettings = async (id) => {
     const sql = `SELECT * FROM Settings
     WHERE User_idUser = ?`;

@@ -2,6 +2,7 @@ const settingsModel = require("../models/settings.model");
 const HttpException = require("../utils/HttpException.utils");
 const { validationResult } = require("express-validator");
 const dotenv = require("dotenv");
+const { getPointsLeaderboard } = require("../models/settings.model");
 dotenv.config();
 
 class SettingsController {
@@ -19,17 +20,31 @@ class SettingsController {
   };
 
   getLeaderboard = async (req, res, next) => {
-    let settingsList = await settingsModel.getLeaderboard();
-    if (!settingsList.length) {
+    let leaderboard = await settingsModel.getLeaderboard();
+    if (!leaderboard.length) {
       throw new HttpException(404, "Settings not found");
     }
 
-    settingsList = settingsList.map((settings) => {
-      return settings;
+    leaderboard = leaderboard.map((leaderboard) => {
+      return leaderboard;
     });
 
-    res.send(settingsList);
+    res.send(leaderboard);
   };
+
+  getPointsLeaderboard = async (req, res, next) => {
+    let leaderboard = await settingsModel.getLeaderboard();
+    if (!leaderboard.length) {
+      throw new HttpException(404, "Settings not found");
+    }
+
+    leaderboard = leaderboard.map((leaderboard) => {
+      return leaderboard;
+    });
+
+    res.send(leaderboard);
+  };
+
   getSettings = async (req, res, next) => {
     let settingsList = await settingsModel.findSettings(req.params.id);
     if (!settingsList) {

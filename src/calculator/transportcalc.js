@@ -17,6 +17,8 @@ const calculateTransportCO2 = (transportValue) => {
         case "Hybrid":
           transportCO2 = transportMultipliers.CarHybridAvgCO2PerKM * milage;
           break;
+        case "Electric":
+          return 0;
       }
       if (passengers == 0) {
         return transportCO2;
@@ -33,6 +35,8 @@ const calculateTransportCO2 = (transportValue) => {
         case "Diesel":
           transportCO2 = transportMultipliers.VanDieselAvgCO2PerKM * milage;
           break;
+        case "Electric":
+          return 0;
       }
       if (passengers == 0) {
         return transportCO2;

@@ -9,10 +9,11 @@ const calcRouter = require("./routes/calc.route");
 const settingsRouter = require("./routes/settings.route");
 const flash = require("express-flash");
 const goalRouter = require("./routes/goal.route");
-const activitiesRouter = require("./routes/activities.route");
+const activitiesRouter = require("./routes/activities.route");;
 
 // Init express
 const app = express();
+app.disable('x-powered-by');
 // Init environment
 dotenv.config();
 // parse requests of content-type: application/json
@@ -23,6 +24,9 @@ app.use(cors());
 // Enable pre-flight
 app.options("*", cors());
 app.use(flash());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
 
 app.use(`/api/users`, userRouter);
 app.use(`/api/questionnaire`, questionnaireRouter);

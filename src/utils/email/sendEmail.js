@@ -16,7 +16,8 @@ const sendEmail = async (email, subject, payload, template) => {
       },
     });
 
-    const source = fs.readFileSync(path.join(__dirname, template), "utf8");
+    const path = path.join(__dirname, template)
+    const source = fs.readFileSync(path, "utf8");
     const compiledTemplate = handlebars.compile(source);
     const options = () => {
       return {

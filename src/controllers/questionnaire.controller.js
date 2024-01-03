@@ -189,7 +189,7 @@ class QController {
       throw new HttpException(404, "Services not found");
     }
 
-    res.send(services);
+    res.type('text').send(services);
   };
 
   insertServices = async (req, res, next) => {

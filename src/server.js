@@ -14,6 +14,24 @@ const activitiesRouter = require("./routes/activities.route");;
 // Init express
 const app = express();
 app.disable('x-powered-by');
+var tokens = require('csrf')
+var secret = tokens.secretSync()
+var token = tokens.create(secret)
+
+tokens.secret(function (err, secret) {
+  if (err) throw err
+  console.log(secret)
+})
+
+tokens.secret().then(function (secret) {
+  console.log(secret)
+})
+
+var secret = tokens.secretSync()
+
+if (!tokens.verify(secret, token)) {
+  throw new Error('invalid token!')
+}
 // Init environment
 dotenv.config();
 // parse requests of content-type: application/json
